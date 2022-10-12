@@ -57,17 +57,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Joystick.cs" />
+    <Compile Include="Assets\VolumetricLights\Demos\Minimal\Scripts\CubeGen.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\SoulLightController.cs" />
     <Compile Include="Assets\LowPolyWater_Pack\Scripts\LowPolyWater.cs" />
+    <Compile Include="Assets\VolumetricLights\Demos\Temple\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\VolumetricLights\Demos\Minimal\Scripts\FenceGen.cs" />
+    <Compile Include="Assets\Script\Alien\AlienMove.cs" />
     <Compile Include="Assets\Script\SoulController.cs" />
     <Compile Include="Assets\Script\AnimalMove.cs" />
-    <Compile Include="Assets\Suriyun\Spacecraft Mini\Scripts\Swapper.cs" />
-    <Compile Include="Assets\VolumetricLights\Demos\Minimal\Scripts\CubeGen.cs" />
     <Compile Include="Assets\VolumetricLights\Demos\Minimal\Scripts\ObjectRotate.cs" />
-    <Compile Include="Assets\VolumetricLights\Demos\Minimal\Scripts\FenceGen.cs" />
-    <Compile Include="Assets\VolumetricLights\Demos\Temple\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Script\Alien\AlienMove.cs" />
+    <Compile Include="Assets\Suriyun\Spacecraft Mini\Scripts\Swapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\VolumetricLights\Resources\Shaders\Particles\DustParticlesForwardPass.hlsl" />
