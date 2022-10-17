@@ -118,6 +118,8 @@
 -define:UNITY_POST_PROCESSING_STACK_V2
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/Plugins/Demigiant/DOTween/DOTween.dll"
+-r:"Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll"
 -r:"C:/game/TakeAnimal/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll"
 -r:"C:/game/TakeAnimal/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Mdb.dll"
 -r:"C:/game/TakeAnimal/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Pdb.dll"
@@ -340,6 +342,7 @@
 -r:"C:/Program Files/2021.3.9f1/Editor/Data/UnityReferenceAssemblies/unity-4.8-api/System.Transactions.dll"
 -r:"C:/Program Files/2021.3.9f1/Editor/Data/UnityReferenceAssemblies/unity-4.8-api/System.Xml.dll"
 -r:"C:/Program Files/2021.3.9f1/Editor/Data/UnityReferenceAssemblies/unity-4.8-api/System.Xml.Linq.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-firstpass.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/com.unity.multiplayer-hlapi.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/com.unity.multiplayer-hlapi.Runtime.ref.dll"
@@ -382,6 +385,8 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.TestRunner.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.XR.LegacyInputHelpers.ref.dll"
+"Assets/DynamicStarrySky/Editor/EditorCoroutine.cs"
+"Assets/DynamicStarrySky/Editor/StarrySkyShaderEditor.cs"
 "Assets/LowPolyWater_Pack/Scripts/Editor/GeneratePlane.cs"
 "Assets/VolumetricLights/Editor/MenuIntegration.cs"
 "Assets/VolumetricLights/Editor/VolumetricLightEditor.cs"
