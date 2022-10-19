@@ -58,28 +58,28 @@ public class AnimalMove : MonoBehaviour
         not_position = new Vector3(transform.position.x, height, transform.position.z);
         if (direction.Equals(dir.forward))
         {
-            rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+            rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
             move_position = new Vector3(transform.position.x + 1, height+1.7f, transform.position.z);
             next_position = new Vector3(transform.position.x + 1, height, transform.position.z);
         }
         else if (direction.Equals(dir.back))
         {
-            rotation = Quaternion.Euler(new Vector3(0, 270, 0));
+            rotation = Quaternion.Euler(new Vector3(0, 180, 0));
             jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
             move_position = new Vector3(transform.position.x - 1, height + 1.7f, transform.position.z);
             next_position = new Vector3(transform.position.x - 1, height, transform.position.z);
         }
         else if (direction.Equals(dir.right))
         {
-            rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+            rotation = Quaternion.Euler(new Vector3(0, 90, 0));
             jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
             move_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z - 1);
             next_position = new Vector3(transform.position.x, height, transform.position.z - 1);
         }
         else
         {
-            rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            rotation = Quaternion.Euler(new Vector3(0, -90, 0));
             jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
             move_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z + 1);
             next_position = new Vector3(transform.position.x, height, transform.position.z + 1);
@@ -135,18 +135,15 @@ public class AnimalMove : MonoBehaviour
             //Debug.Log(this.gameObject.name+"가 충돌감지!");
             //hit.transform.GetComponent<MeshRenderer>().material.color = Color.black;
 
-            if (hit.collider.CompareTag("Human_Light"))
+       
+
+            if (hit.collider.CompareTag("ground"))
             {
-               // if (!IsAnimal)
-               // {
-                   
-                    Debug.Log("사라졌어야함");
-
-
+               return true;
             }
-                
 
-                return true;
+
+            return false;
             //else
             //   return false;
         }

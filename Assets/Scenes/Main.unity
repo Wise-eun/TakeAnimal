@@ -194,6 +194,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8738688776177094309, guid: ec076c9e10c965247aa28a0a5dd80dde, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 350c3367b7ee4d3489cbbcaa37cde603, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec076c9e10c965247aa28a0a5dd80dde, type: 3}
 --- !u!4 &32047976 stripped
@@ -1489,6 +1493,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 123
       objectReference: {fileID: 0}
+    - target: {fileID: 6102143193791732747, guid: d68dcff187a36b94f9cb67aa44f2fe46, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 350c3367b7ee4d3489cbbcaa37cde603, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d68dcff187a36b94f9cb67aa44f2fe46, type: 3}
 --- !u!4 &342910645 stripped
@@ -2989,6 +2997,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6723853073871676192, guid: c6897082ea42ae94e8f3c6cb0ff5bce2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 350c3367b7ee4d3489cbbcaa37cde603, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6897082ea42ae94e8f3c6cb0ff5bce2, type: 3}
 --- !u!4 &677286220 stripped
@@ -6301,6 +6313,10 @@ PrefabInstance:
       propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3865081679121609168, guid: 779255a143f162e458a996fc190b9c13, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 350c3367b7ee4d3489cbbcaa37cde603, type: 2}
     - target: {fileID: 6362815115755569321, guid: 779255a143f162e458a996fc190b9c13, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -13077,6 +13093,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 123
       objectReference: {fileID: 0}
+    - target: {fileID: 3924011711007943780, guid: f50ddb5f19e6a444798016209d9e8973, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 350c3367b7ee4d3489cbbcaa37cde603, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f50ddb5f19e6a444798016209d9e8973, type: 3}
 --- !u!4 &1779116444 stripped
@@ -14688,7 +14708,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.9669812, g: 1, b: 0.43867922, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30

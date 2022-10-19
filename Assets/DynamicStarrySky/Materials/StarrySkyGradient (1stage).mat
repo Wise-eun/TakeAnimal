@@ -106,7 +106,7 @@ Material:
     - _MoonAngle: 0.193
     - _MoonEdgeFade: 0.226
     - _MoonHDRBoost: 1
-    - _MoonHeight: 0.456
+    - _MoonHeight: 0.566
     - _MoonRadius: 0.046
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -142,10 +142,10 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GradientHorizonColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GradientSkyColor: {r: 0.015797434, g: 0.32219428, b: 0.6698113, a: 1}
+    - _GradientSkyColor: {r: 0.21226418, g: 0.5642123, b: 1, a: 1}
     - _MoonColor: {r: 0.66, g: 0.65, b: 0.55, a: 1}
-    - _MoonComputedPositionData: {r: 0.34917435, g: -0.088, b: 0.9329165, a: 0}
-    - _MoonComputedRotationData: {r: 0.088113785, g: 6.641327, b: 0, a: 0}
+    - _MoonComputedPositionData: {r: 0.347467, g: 0.13199997, b: 0.92835486, a: 0}
+    - _MoonComputedRotationData: {r: 6.1507993, g: 6.641327, b: 0, a: 0}
     - _StarLayer1Color: {r: 0.9117647, g: 0.9634888, b: 1, a: 1}
     - _StarLayer2Color: {r: 0.24688502, g: 0.7169812, b: 0.44791356, a: 1}
     - _StarLayer3Color: {r: 0.9780992, g: 0.9852941, b: 0.85488755, a: 1}

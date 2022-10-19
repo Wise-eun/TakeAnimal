@@ -381,6 +381,7 @@
 "Assets/LowPolyWater_Pack/Scripts/LowPolyWater.cs"
 "Assets/Script/Alien/AlienMove.cs"
 "Assets/Script/AnimalMove.cs"
+"Assets/Script/CameraMove.cs"
 "Assets/Script/GameManager.cs"
 "Assets/Script/Joystick.cs"
 "Assets/Script/SoulController.cs"

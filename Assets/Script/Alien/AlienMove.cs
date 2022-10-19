@@ -30,7 +30,6 @@ public class AlienMove : MonoBehaviour
                // Debug.DrawRay(target.transform.position, new Vector3(transform.position.x +10, transform.position.y-10, transform.position.z), Color.black, 0.3f);
                 StartCoroutine(MoveToPosition(dir.left));
             Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
-            Debug.Log("øﬁ¬ ");
      
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -67,25 +66,25 @@ public class AlienMove : MonoBehaviour
         {
             rotation = Quaternion.Euler(new Vector3(0, 90, 0));
 
-            next_position = new Vector3(transform.position.x +1.3f, height, transform.position.z);
+            next_position = new Vector3(transform.position.x +1f, height, transform.position.z);
         }
         else if (direction.Equals(dir.back))
         {
             rotation = Quaternion.Euler(new Vector3(0, 270, 0));
 
-            next_position = new Vector3(transform.position.x - 1.3f, height, transform.position.z);
+            next_position = new Vector3(transform.position.x - 1f, height, transform.position.z);
         }
         else if (direction.Equals(dir.right))
         {
             rotation = Quaternion.Euler(new Vector3(0, 180, 0));
 
-            next_position = new Vector3(transform.position.x, height, transform.position.z - 1.3f);
+            next_position = new Vector3(transform.position.x, height, transform.position.z - 1f);
         }
         else
         {
             rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
-            next_position = new Vector3(transform.position.x, height, transform.position.z + 1.3f);
+            next_position = new Vector3(transform.position.x, height, transform.position.z + 1f);
         }
 
         var t = 0f;
@@ -122,8 +121,8 @@ public class AlienMove : MonoBehaviour
         {
             // Debug.DrawRay(target.transform.position, target.transform.up, Color.red,1f);
             //Debug.Log(this.gameObject.name+"∞° √Êµπ∞®¡ˆ!");
-           // hit.transform.GetComponent<MeshRenderer>().material.color = Color.black;
-
+            // hit.transform.GetComponent<MeshRenderer>().material.color = Color.black;
+           // Debug.Log("ππ ¥Í¿”");
             if (hit.collider.CompareTag("Human_Light"))
             {
                 // if (!IsAnimal)
@@ -134,11 +133,21 @@ public class AlienMove : MonoBehaviour
 
 
             }
+            if (hit.collider.CompareTag("ground"))
+            {
+                // if (!IsAnimal)
+                // {
 
+               
+                // }
 
-            return true;
-     
+                return true;
+            }
+
+            return false;
+
         }
+       // Debug.Log("ππ æ»¥Í¿”");
         return false;
     }
 }
