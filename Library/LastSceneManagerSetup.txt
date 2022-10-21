@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/TakeAnimal.unity
+- path: Assets/Scenes/Chapter4.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
