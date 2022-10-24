@@ -10,7 +10,8 @@ public class AlienMove : MonoBehaviour
     RaycastHit hit;
     float maxDistance = 5f;
     bool Isfloor = false;
-  
+    [SerializeField]
+    AlienLightController alienLightController;
 
     [SerializeField]
     float height;
@@ -26,32 +27,32 @@ public class AlienMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            
+            if (!GameManager.instance.IsTake)
                // Debug.DrawRay(target.transform.position, new Vector3(transform.position.x +10, transform.position.y-10, transform.position.z), Color.black, 0.3f);
                 StartCoroutine(MoveToPosition(dir.left));
-            Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
+            //Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
      
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-     
+            if (!GameManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.right));
-            Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
+            //Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
 
         }
 
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-        
+            if (!GameManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.forward));
-            Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
+           // Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-  
+            if (!GameManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.back));
-            Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
+          //  Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
         }
     }
 
@@ -99,16 +100,18 @@ public class AlienMove : MonoBehaviour
         Isfloor = check();
         if (Isfloor)
         {
-           // Debug.Log("πŸ¥⁄¿”");
+        
+            // Debug.Log("πŸ¥⁄¿”");
             while (t < 1)
             {
                 t += Time.deltaTime / timeToMove;
                 transform.position = Vector3.Lerp(transform.position, next_position, t);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, t);
                 yield return null;
-            }
-        }        
+            }     
+        }
 
+        alienLightController.CheckObject();
     }
 
 
@@ -121,8 +124,9 @@ public class AlienMove : MonoBehaviour
         {
             // Debug.DrawRay(target.transform.position, target.transform.up, Color.red,1f);
             //Debug.Log(this.gameObject.name+"∞° √Êµπ∞®¡ˆ!");
-            // hit.transform.GetComponent<MeshRenderer>().material.color = Color.black;
-           // Debug.Log("ππ ¥Í¿”");
+            //  hit.transform.GetComponent<MeshRenderer>().material.color = Color.black;
+            // Debug.Log("ππ ¥Í¿”");
+      
             if (hit.collider.CompareTag("Human_Light"))
             {
                 // if (!IsAnimal)

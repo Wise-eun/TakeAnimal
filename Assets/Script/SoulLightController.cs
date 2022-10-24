@@ -20,8 +20,9 @@ public class SoulLightController : MonoBehaviour
 
             if(alienMode)
             {
-                StartCoroutine(animalUp());
                 dog = other.gameObject.transform.parent.gameObject;
+                StartCoroutine(animalUp());
+               
             }
             else
             {

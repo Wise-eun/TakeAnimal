@@ -13,7 +13,7 @@ public class SoulController : MonoBehaviour
             this.gameObject.SetActive(false);
             collision.gameObject.SetActive(false);
 
-            GameManager.instance.Meet(this.transform.position);
+         
         }
     }
 

@@ -379,6 +379,7 @@
 "Assets/DynamicStarrySky/Scripts/SphereUtility.cs"
 "Assets/DynamicStarrySky/Scripts/StarPoint.cs"
 "Assets/LowPolyWater_Pack/Scripts/LowPolyWater.cs"
+"Assets/Script/Alien/AlienLightController.cs"
 "Assets/Script/Alien/AlienMove.cs"
 "Assets/Script/AnimalMove.cs"
 "Assets/Script/CameraMove.cs"

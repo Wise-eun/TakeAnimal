@@ -9,8 +9,8 @@ TagManager:
   - Soul_Light
   - Human_Light
   - Soul
-  - Human
   - ground
+  - Animal
   layers:
   - Default
   - TransparentFX

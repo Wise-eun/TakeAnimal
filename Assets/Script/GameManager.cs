@@ -6,17 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     //[SerializeField] GameObject CompleteHuman;
-    [SerializeField] GameObject Exit;
-    [SerializeField] GameObject FakeWall;
 
+    public bool IsTake = false;
 
     void Awake()
     {
-        //CompleteHuman.SetActive(false);
-        Exit.SetActive(false);
-       // FakeWall.SetActive(true);
-
-
         if (instance == null)
         {
             instance = this;
@@ -24,18 +18,8 @@ public class GameManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
-
-
         DontDestroyOnLoad(gameObject);
     }
     
-
-    public void Meet(Vector3 pos)
-    {
-        //CompleteHuman.transform.position = pos;
-        //CompleteHuman.SetActive(true);
-        Exit.SetActive(true);
-        FakeWall.SetActive(false);
-    }
     
 }
