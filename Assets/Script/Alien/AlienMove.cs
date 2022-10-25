@@ -31,12 +31,13 @@ public class AlienMove : MonoBehaviour
                // Debug.DrawRay(target.transform.position, new Vector3(transform.position.x +10, transform.position.y-10, transform.position.z), Color.black, 0.3f);
                 StartCoroutine(MoveToPosition(dir.left));
             //Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
-     
+
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             if (!GameManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.right));
+
             //Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
 
         }
@@ -45,14 +46,16 @@ public class AlienMove : MonoBehaviour
         {
             if (!GameManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.forward));
-           // Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
+
+            // Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (!GameManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.back));
-          //  Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
+ 
+            //  Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
         }
     }
 
@@ -107,6 +110,7 @@ public class AlienMove : MonoBehaviour
                 t += Time.deltaTime / timeToMove;
                 transform.position = Vector3.Lerp(transform.position, next_position, t);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, t);
+                alienLightController.gameObject.transform.position = transform.position;
                 yield return null;
             }     
         }
@@ -137,7 +141,7 @@ public class AlienMove : MonoBehaviour
 
 
             }
-            if (hit.collider.CompareTag("ground"))
+            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("movingGround"))
             {
                 // if (!IsAnimal)
                 // {

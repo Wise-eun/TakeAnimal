@@ -11,6 +11,8 @@ TagManager:
   - Soul
   - ground
   - Animal
+  - cloud
+  - movingGround
   layers:
   - Default
   - TransparentFX

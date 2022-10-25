@@ -10,27 +10,42 @@ public class AlienLightController : MonoBehaviour
     GameObject UFO;
     [SerializeField]
     Transform UFOLight;
+
+    Vector3 cloud_height;
+    Vector3 ground_height;
+    private void Start()
+    {
+        cloud_height = new Vector3(1f, 1f, 0.3f);
+        ground_height = new Vector3(1f, 1f, 0.8f);
+    }
     public void CheckObject()
     {
         if (Physics.Raycast(transform.position, transform.up, out hit))
         {
-            if (hit.collider.CompareTag("Animal"))
-            {
-                UFOLight.localScale = new Vector3(1f, 1f, 0.8f);
-                GameManager.instance.IsTake = true;
+          //  Debug.Log("¥Í¿Œ π∞√º¥¬ ∏ª¿Ã¡“ : " + hit.transform.gameObject.name);
 
-                animal = hit.collider.gameObject;
-                StartCoroutine(TakeAnimal());
-            }
-            else if (hit.collider.CompareTag("ground"))
+
+            if (hit.collider.CompareTag("cloud"))
             {
-                UFOLight.localScale = new Vector3(1f, 1f, 0.8f);
+                Debug.Log("cloud ¥Í¿”!");
+                UFOLight.localScale = cloud_height;
+               // UFOLight.position.Scale(new Vector3(1f, 1f, 0.3f));
             }
-            else
+            else 
             {
-                UFOLight.localScale = new Vector3(1f, 1f, 0.3f);
-            
+                UFOLight.localScale = ground_height;
+               // UFOLight.position.Scale(new Vector3(1f, 1f, 0.8f));
+                if (hit.collider.CompareTag("Animal"))
+                {
+                
+                    GameManager.instance.IsTake = true;
+
+                    animal = hit.collider.gameObject;
+                    StartCoroutine(TakeAnimal());
+                }
             }
+        
+      
 
         }    
     }
@@ -39,7 +54,7 @@ public class AlienLightController : MonoBehaviour
 
     IEnumerator TakeAnimal()
     {
-        animal.GetComponent<AnimalMove>().StopAllCoroutines();
+        animal.GetComponentInParent<AnimalMove>().StopAllCoroutines();
         animal.transform.DOMoveY(transform.position.y - 1f,1.5f);
         yield return new WaitForSeconds(1.5f);
         animal.SetActive(false);

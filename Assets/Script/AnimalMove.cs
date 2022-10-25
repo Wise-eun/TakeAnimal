@@ -11,9 +11,13 @@ public class AnimalMove : MonoBehaviour
     float maxDistance = 5f;
     bool Isfloor = false;
     
-    [SerializeField]
+ 
     float height;
-   public  enum dir
+
+    [SerializeField]
+    Transform MovingGround_height;
+
+    public  enum dir
     {
         left,
         right,
@@ -56,7 +60,8 @@ public class AnimalMove : MonoBehaviour
     float timeToMove = 0.07f;
     public IEnumerator MoveToPosition(dir direction)
     {
-        not_position = new Vector3(transform.position.x, height, transform.position.z);
+        height = transform.position.y;
+        not_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
         if (direction.Equals(dir.forward))
         {
             rotation = Quaternion.Euler(new Vector3(0, 0, 0));
@@ -132,18 +137,25 @@ public class AnimalMove : MonoBehaviour
     {
         if (Physics.Raycast(target.transform.position, target.transform.up, out hit, maxDistance))
         {
-           // Debug.DrawRay(target.transform.position, target.transform.up, Color.red,1f);
+            // Debug.DrawRay(target.transform.position, target.transform.up, Color.red,1f);
             //Debug.Log(this.gameObject.name+"가 충돌감지!");
             //hit.transform.GetComponent<MeshRenderer>().material.color = Color.black;
 
-       
 
             if (hit.collider.CompareTag("ground"))
             {
-               return true;
+                if (transform.position.y >1.8)
+                    return false;
+                return true;
             }
-
-
+            if (hit.collider.CompareTag("movingGround"))
+            {
+                if (transform.position.y > 1.8)
+                    return false;
+                if (MovingGround_height.position.y <=1.5)
+                    return true;        
+            }
+       
             return false;
             //else
             //   return false;
