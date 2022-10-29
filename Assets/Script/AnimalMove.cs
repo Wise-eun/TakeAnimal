@@ -1,6 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using DG.Tweening;
 
 public class AnimalMove : MonoBehaviour
 {
@@ -61,7 +62,7 @@ public class AnimalMove : MonoBehaviour
     public IEnumerator MoveToPosition(dir direction)
     {
         height = transform.position.y;
-        not_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
+        not_position = new Vector3(transform.position.x, height , transform.position.z);
         if (direction.Equals(dir.forward))
         {
             rotation = Quaternion.Euler(new Vector3(0, 0, 0));
@@ -161,6 +162,15 @@ public class AnimalMove : MonoBehaviour
             //   return false;
         }
         return false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Animal"))
+        {
+ 
+            this.gameObject.SetActive(false);
+        }
     }
 }
 

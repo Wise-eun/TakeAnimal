@@ -389,6 +389,7 @@
 "Assets/Script/Obstacle/GroundMove.cs"
 "Assets/Script/SoulController.cs"
 "Assets/Script/SoulLightController.cs"
+"Assets/Script/UI/GameResult.cs"
 "Assets/Script/UI/UIAnimation.cs"
 "Assets/Script/UI/UIButtonEvent.cs"
 "Assets/Suriyun/Spacecraft Mini/Scripts/Swapper.cs"
