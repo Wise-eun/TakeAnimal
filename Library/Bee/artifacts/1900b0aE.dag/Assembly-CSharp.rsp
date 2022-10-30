@@ -385,6 +385,8 @@
 "Assets/Script/CameraMove.cs"
 "Assets/Script/GameManager.cs"
 "Assets/Script/Joystick.cs"
+"Assets/Script/NewGame/NewAlienMove.cs"
+"Assets/Script/NewGame/NewAnimalMove.cs"
 "Assets/Script/Obstacle/CarMove.cs"
 "Assets/Script/Obstacle/GroundMove.cs"
 "Assets/Script/SoulController.cs"
