@@ -13,6 +13,7 @@ TagManager:
   - Animal
   - cloud
   - movingGround
+  - highGround
   layers:
   - Default
   - TransparentFX
