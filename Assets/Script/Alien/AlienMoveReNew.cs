@@ -14,6 +14,44 @@ public class AlienMoveReNew : MonoBehaviour
     Transform groundCheck;
 
     bool taking = true;
+
+    public void LeftMove()
+    {
+        if (taking) 
+        {
+            groundCheck.transform.position = new Vector3(transform.position.x - 1.2f, groundCheck.position.y, transform.position.z);
+            if (GroundCheck())
+                transform.DOMoveX(transform.position.x - 1.2f, 0.1f);
+        }       
+    }
+    public void RightMove()
+    {
+        if (taking)
+        {
+            groundCheck.transform.position = new Vector3(transform.position.x + 1.2f, groundCheck.position.y, transform.position.z);
+            if (GroundCheck())
+                transform.DOMoveX(transform.position.x + 1.2f, 0.1f);
+        }
+    }
+    public void UpMove()
+    {
+        if (taking)
+        {
+            groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.2f);
+            if (GroundCheck())
+                transform.DOMoveZ(transform.position.z + 1.2f, 0.1f);
+        }
+    }
+    public void DownMove()
+    {
+        if (taking)
+        {
+            groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.2f);
+            if (GroundCheck())
+                transform.DOMoveZ(transform.position.z - 1.2f, 0.1f);
+        }
+    }
+
     void Update()
     {
         if (taking)

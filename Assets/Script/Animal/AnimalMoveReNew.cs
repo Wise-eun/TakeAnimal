@@ -26,6 +26,39 @@ public class AnimalMoveReNew : MonoBehaviour
         back
     }
 
+    public void RightMove()
+    {
+        if (!(GameManager.instance.IsTake))
+        {
+            groundCheck.transform.position = new Vector3(transform.position.x + 1.2f, groundCheck.position.y, transform.position.z);
+            StartCoroutine(MoveToPosition(dir.right));
+        }          
+    }
+    public void LeftMove()
+    {
+        if (!(GameManager.instance.IsTake))
+        {
+            groundCheck.transform.position = new Vector3(transform.position.x - 1.2f, groundCheck.position.y, transform.position.z);
+            StartCoroutine(MoveToPosition(dir.left));
+        }
+    }
+    public void UpMove()
+    {
+        if (!(GameManager.instance.IsTake))
+        {
+            groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.2f);
+            StartCoroutine(MoveToPosition(dir.forward));
+        }
+    }
+
+    public void DownMove()
+    {
+        if (!(GameManager.instance.IsTake))
+        {
+            groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.2f);
+            StartCoroutine(MoveToPosition(dir.back));
+        }
+    }
     void Update()
     {
         
@@ -65,7 +98,7 @@ public class AnimalMoveReNew : MonoBehaviour
     float timeToMove = 0.07f;
     public IEnumerator MoveToPosition(dir direction)
     {
-        height = transform.position.y;
+        height =0;
         not_position = new Vector3(transform.position.x, height, transform.position.z);
         if (direction.Equals(dir.forward))
         {
