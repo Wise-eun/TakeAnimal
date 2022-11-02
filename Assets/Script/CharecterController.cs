@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class CharecterController : MonoBehaviour
 {
-    [SerializeField]
-    AlienMoveReNew alien;
-    [SerializeField]
-    AnimalMoveReNew animal;
+   
+   public  AlienMoveReNew alien;  
+   public  AnimalMoveReNew animal;
 
     bool Re = false;
     Stack<int> MoveOrder = new Stack<int>();
