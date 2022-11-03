@@ -7,15 +7,9 @@ public class AnimalMoveReNew : MonoBehaviour
     bool Isfloor = true;
 
 
-    [SerializeField]
-    float max_x, max_z;
-    [SerializeField]
-    float min_x, min_z;
 
     float height;
 
-    [SerializeField]
-    Transform MovingGround_height;
     [SerializeField]
     Transform groundCheck;
     public enum dir
@@ -96,6 +90,41 @@ public class AnimalMoveReNew : MonoBehaviour
     Vector3 next_position;
     Quaternion rotation;
     float timeToMove = 0.07f;
+
+    public IEnumerator ReMoveToPosition(Vector3 repos)
+    {
+      
+        jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
+        move_position = new Vector3(repos.x, height + 1.7f, repos.z);
+        next_position = new Vector3(repos.x, height, repos.z);
+
+
+        var t = 0f;
+        while (t < 1)
+        {
+            t += Time.deltaTime / timeToMove;
+            transform.position = Vector3.Lerp(transform.position, jump_position, t);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, t);
+            yield return null;
+        }
+        t = 0f;   
+            while (t < 1)
+            {
+                t += Time.deltaTime / timeToMove;
+                transform.position = Vector3.Lerp(jump_position, move_position, t);
+                yield return null;
+            }
+
+            t = 0f;
+            while (t < 1)
+            {
+                t += Time.deltaTime / timeToMove;
+                transform.position = Vector3.Lerp(move_position, next_position, t);
+                yield return null;
+            }
+        
+    }
+
     public IEnumerator MoveToPosition(dir direction)
     {
         height =0;
@@ -175,7 +204,7 @@ public class AnimalMoveReNew : MonoBehaviour
     {
         if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
         {         
-            if (hit.collider.CompareTag("ground"))
+            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("lightGround"))
             {
                 return true;
             }

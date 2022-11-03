@@ -9,14 +9,14 @@ public class CharecterController : MonoBehaviour
    public  AnimalMoveReNew animal;
 
     bool Re = false;
-    Stack<int> MoveOrder = new Stack<int>();
+    Stack<Vector3> AnimalMoveOrder = new Stack<Vector3>();
+    Stack<Vector3> AlienMoveOrder = new Stack<Vector3>();
+
     public void MoveUp()
     {
-        if(!Re)
-        {
-            StageManager.instance.IncreaseMove();
-            MoveOrder.Push(0);
-        }
+        StageManager.instance.IncreaseMove();
+        AnimalMoveOrder.Push(animal.gameObject.transform.position);
+        AlienMoveOrder.Push(alien.gameObject.transform.position);
 
         alien.UpMove();
         animal.DownMove();
@@ -24,31 +24,25 @@ public class CharecterController : MonoBehaviour
     }
     public void MoveDown()
     {
-        if (!Re)
-        {
-            StageManager.instance.IncreaseMove();
-            MoveOrder.Push(1);
-        }   
+        StageManager.instance.IncreaseMove();
+        AnimalMoveOrder.Push(animal.gameObject.transform.position);
+        AlienMoveOrder.Push(alien.gameObject.transform.position);
         alien.DownMove();
         animal.UpMove();
     }
     public void MoveRight()
     {
-        if (!Re)
-        {
-            StageManager.instance.IncreaseMove();
-            MoveOrder.Push(2);
-        }
+        StageManager.instance.IncreaseMove();
+        AnimalMoveOrder.Push(animal.gameObject.transform.position);
+        AlienMoveOrder.Push(alien.gameObject.transform.position);
         alien.RightMove();
         animal.LeftMove();
     }
     public void MoveLeft()
     {
-        if (!Re)
-        {
-            StageManager.instance.IncreaseMove();
-            MoveOrder.Push(3);
-        }
+        StageManager.instance.IncreaseMove();
+        AnimalMoveOrder.Push(animal.gameObject.transform.position);
+        AlienMoveOrder.Push(alien.gameObject.transform.position);
         alien.LeftMove();
         animal.RightMove();
 
@@ -56,21 +50,14 @@ public class CharecterController : MonoBehaviour
     int num;
     public void MoveRe()
     {
-        if(StageManager.instance.MoveNum!= 0)
+        if (StageManager.instance.MoveNum != 0)
         {
-            Re = true;
-            StageManager.instance.DecreaseMove();
-            num = MoveOrder.Pop();
-            if (num == 0)
-                MoveDown();
-            else if (num == 1)
-                MoveUp();
-            else if (num == 2)
-                MoveLeft();
-            else if (num == 3)
-                MoveRight();
 
-            Re = false;
+            StageManager.instance.DecreaseMove();
+            StartCoroutine(animal.ReMoveToPosition(AnimalMoveOrder.Pop()));
+            alien.ReMove(AlienMoveOrder.Pop());
+            //animal.gameObject.transform.position = AnimalMoveOrder.Pop();
+            //alien.gameObject.transform.position = AlienMoveOrder.Pop();
         }
 
     }
