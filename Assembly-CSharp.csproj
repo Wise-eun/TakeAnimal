@@ -125,30 +125,41 @@
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\Lighting.hlsl" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\Features.hlsl" />
+    <None Include="Assets\StylizedWater2\Shaders\StylizedWater2.shader" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\Particles\DustParticlesForwardPass.hlsl" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\TransparentMultiply.shader" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\DepthOnly.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\Primitives.hlsl" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\ForwardPass.hlsl" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\Tesselation.hlsl" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\Common.hlsl" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\Empty.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\VolumetricLightURP.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\Particles\DustParticlesInput.hlsl" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\Fog.hlsl" />
     <None Include="Assets\VolumetricLights\Demos\Church\Textures\Source.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\DynamicStarrySky\README.txt" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\Blur.hlsl" />
+    <None Include="Assets\StylizedWater2\Shaders\WaterTransparencyMask.shader" />
     <None Include="Assets\LowPolyWater_Pack\Shaders\WaterShaded.shader" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\Lighting.hlsl" />
     <None Include="Assets\Suriyun\Spacecraft Mini\README.txt" />
     <None Include="Assets\DynamicStarrySky\Shaders\StarrySky.shader" />
+    <None Include="Assets\StylizedWater2\Shaders\StylizedWater2_Tessellation.shader" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\CopyDepthIntoCubemap.shader" />
     <None Include="Assets\VolumetricLights\README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\Caustics.hlsl" />
     <None Include="Assets\LowPolyWater_Pack\LowPoly Island\Credits.txt" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\Input.hlsl" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\ShadowOcclusion.hlsl" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -159,6 +170,7 @@
     <None Include="Assets\SimpleSky\ReadMe.txt" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\Options.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\Vertex.hlsl" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\CommonsURP.hlsl" />
     <None Include="Assets\VolumetricLights\Resources\Shaders\Invisible.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
@@ -167,6 +179,7 @@
     <None Include="Assets\VolumetricLights\Resources\Shaders\Particles\DustParticles.shader" />
     <None Include="Assets\VolumetricLightsBundle\_README FIRST!.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\Waves.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
@@ -174,6 +187,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\Stylized Low Poly Cube World Building Pack\INSTRUCTIONS.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
+    <None Include="Assets\StylizedWater2\Shaders\Libraries\URP.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -908,14 +922,14 @@
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.XR.LegacyInputHelpers">
       <HintPath>Library\ScriptAssemblies\UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.SpatialTracking">
       <HintPath>Library\ScriptAssemblies\UnityEditor.SpatialTracking.dll</HintPath>
@@ -932,6 +946,14 @@
     <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.csproj">
       <Project>{2AA03B76-0666-C1B9-3BCE-419B634C5B84}</Project>
       <Name>Unity.RenderPipelines.Universal.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="sc.stylizedwater2.editor.csproj">
+      <Project>{1275A5FE-D01C-B2DB-05CF-1FCA283327BA}</Project>
+      <Name>sc.stylizedwater2.editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="sc.stylizedwater2.runtime.csproj">
+      <Project>{38FBA999-E87C-1342-7EFF-FE4E8C33177D}</Project>
+      <Name>sc.stylizedwater2.runtime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

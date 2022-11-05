@@ -15,6 +15,7 @@ TagManager:
   - movingGround
   - highGround
   - lightGround
+  - waterGround
   layers:
   - Default
   - TransparentFX
