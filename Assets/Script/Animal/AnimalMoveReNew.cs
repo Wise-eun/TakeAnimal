@@ -252,10 +252,13 @@ public class AnimalMoveReNew : MonoBehaviour
                         yield return null;
                     }
                 if (direction.Equals(dir.right))
-                    transform.GetChild(0).transform.position = new Vector3(transform.GetChild(0).transform.position .x+0.5f, transform.GetChild(0).transform.position.y, transform.GetChild(0).transform.position.z);
+                    transform.GetChild(0).transform.localPosition = new Vector3(0.5f, 1, 0);
                 else if (direction.Equals(dir.left))
-                    transform.GetChild(0).transform.position = new Vector3(transform.GetChild(0).transform.position.x -0.5f, transform.GetChild(0).transform.position.y, transform.GetChild(0).transform.position.z);
-
+                    transform.GetChild(0).transform.localPosition = new Vector3(0.5f, 1, 0);
+                else if (direction.Equals(dir.back))
+                    transform.GetChild(0).transform.localPosition = new Vector3( 0.5f, 1, 0f);
+                else if (direction.Equals(dir.forward))
+                    transform.GetChild(0).transform.localPosition = new Vector3( 0.5f, 1, 0f);
                 transform.GetChild(0).transform.localEulerAngles = new Vector3(0, 0, 90f);
 
                     transform.DOMoveY(-0.7f, 1).SetLoops(-1, LoopType.Yoyo);
@@ -304,7 +307,7 @@ public class AnimalMoveReNew : MonoBehaviour
             }
 
         }
-        //InWater = false;
+        IsWater = false;
         return false;
     }
 
