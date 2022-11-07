@@ -213,7 +213,7 @@ public class AlienMoveReNew : MonoBehaviour
         if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
         {
 
-            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("highGround") || hit.collider.CompareTag("waterGround"))
+            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("highGround") || hit.collider.CompareTag("waterGround") || hit.collider.CompareTag("slideGround"))
             {
                 light = true;
                 return true;

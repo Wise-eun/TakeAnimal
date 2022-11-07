@@ -14,6 +14,10 @@ public class AnimalMoveReNew : MonoBehaviour
 
     [SerializeField]
     Transform groundCheck;
+
+    [SerializeField]
+    bool IsChapter4 = false;
+    bool IsSliding = false; //현재 미끄러져서 이동하는중인지 확인
     public enum dir
     {
         left,
@@ -26,6 +30,19 @@ public class AnimalMoveReNew : MonoBehaviour
     {
         if (!(GameManager.instance.IsTake))
         {
+            if(IsChapter4)
+            {
+                if(!IsSliding)
+                {
+                   // groundCheck.transform.position = new Vector3(transform.position.x + 1.2f, groundCheck.position.y, transform.position.z);
+                   // GroundCheck();
+
+                    StartCoroutine(Sliding(dir.right));
+                }
+
+
+                return;
+            }
             if (InWater)
             {
                 groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.2f);
@@ -43,6 +60,17 @@ public class AnimalMoveReNew : MonoBehaviour
     {
         if (!(GameManager.instance.IsTake))
         {
+            if (IsChapter4)
+            {
+                if (!IsSliding)
+                {
+                    //groundCheck.transform.position = new Vector3(transform.position.x - 1.2f, groundCheck.position.y, transform.position.z);
+                    //GroundCheck();
+                    StartCoroutine(Sliding(dir.left));
+                }
+
+                return;    
+            }
             if (InWater)
             {
                 groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.2f);
@@ -56,10 +84,104 @@ public class AnimalMoveReNew : MonoBehaviour
             StartCoroutine(MoveToPosition(dir.left));
         }
     }
+    IEnumerator Sliding(dir direct)
+    {
+        Vector3 groundDirect = transform.position;
+        float move = 0f;
+        if (direct.Equals(dir.right))
+        {
+            transform.DORotate(new Vector3(0, 0, 0), 0.2f);
+            for (int i = 0; i < 100; i++)
+            {
+                move = transform.position.x + 1.2f;
+                groundDirect = new Vector3(transform.position.x + 1.2f, groundCheck.position.y, transform.position.z);
+                groundCheck.transform.position = groundDirect;
+                GroundCheck();
+                if (!IsSliding)
+                    break;
+
+                if (IsSliding)
+                {
+                    transform.DOMoveX(move, 0.2f);
+                    yield return new WaitForSeconds(0.15f);          
+                }
+            }                         
+        }
+        else if (direct.Equals(dir.left))
+        {
+            transform.DORotate(new Vector3(0, 180, 0), 0.2f);
+            for (int i = 0; i < 100; i++)
+            {
+                move = transform.position.x - 1.2f;
+                groundDirect = new Vector3(transform.position.x - 1.2f, groundCheck.position.y, transform.position.z);
+                groundCheck.transform.position = groundDirect;
+                GroundCheck();
+                if (!IsSliding)
+                    break;
+
+                if (IsSliding)
+                {
+                    transform.DOMoveX(move, 0.2f);
+                    yield return new WaitForSeconds(0.15f);                    
+                }
+            }             
+        }
+        else if (direct.Equals(dir.forward))
+        {
+            transform.DORotate(new Vector3(0, -90, 0), 0.2f);
+            for (int i = 0; i < 100; i++)
+            {
+           
+                move = transform.position.z + 1.2f;
+                groundDirect = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.2f);
+                groundCheck.transform.position = groundDirect;
+                GroundCheck();
+                if (!IsSliding)
+                    break;
+
+                if (IsSliding)
+                {
+                    transform.DOMoveZ(move, 0.2f);
+                    yield return new WaitForSeconds(0.15f);
+                   
+                }
+            }
+        }
+        else if (direct.Equals(dir.back))
+        {
+            transform.DORotate(new Vector3(0, 90, 0), 0.2f);
+            for (int i = 0; i < 100; i++)
+            {
+                move = transform.position.z - 1.2f;
+                groundDirect = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.2f);
+                groundCheck.transform.position = groundDirect;
+                GroundCheck();
+                if (!IsSliding)
+                    break;
+
+                if (IsSliding)
+                {
+                    transform.DOMoveZ(move, 0.2f);
+                    yield return new WaitForSeconds(0.15f);           
+                }
+            }                
+        }
+       
+     
+    }
     public void UpMove()
     {
+       
         if (!(GameManager.instance.IsTake))
         {
+            if (IsChapter4)
+            {
+               // groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.2f);
+                //GroundCheck();
+
+                StartCoroutine(Sliding(dir.forward));
+                return;
+            }
             if (InWater)
             {
                 groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.2f);
@@ -78,6 +200,14 @@ public class AnimalMoveReNew : MonoBehaviour
     {
         if (!(GameManager.instance.IsTake))
         {
+            if (IsChapter4)
+            {
+                //groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.2f);
+                //GroundCheck();
+
+                StartCoroutine(Sliding(dir.back));
+                return;
+            }
             if (InWater)
             {
                 groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.2f);
@@ -305,8 +435,15 @@ public class AnimalMoveReNew : MonoBehaviour
                 IsWater = true;
                 return true;
             }
+            if (hit.collider.CompareTag("slideGround"))
+            {
+                Debug.Log("빙판이당!");
+                IsSliding = true;
+                return true;
+            }
 
         }
+        IsSliding = false;
         IsWater = false;
         return false;
     }
