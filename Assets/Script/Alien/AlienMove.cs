@@ -27,7 +27,7 @@ public class AlienMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (!GameManager.instance.IsTake)
+            if (!StageManager.instance.IsTake)
                // Debug.DrawRay(target.transform.position, new Vector3(transform.position.x +10, transform.position.y-10, transform.position.z), Color.black, 0.3f);
                 StartCoroutine(MoveToPosition(dir.left));
             //Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
@@ -35,7 +35,7 @@ public class AlienMove : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (!GameManager.instance.IsTake)
+            if (!StageManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.right));
 
             //Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
@@ -44,7 +44,7 @@ public class AlienMove : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (!GameManager.instance.IsTake)
+            if (!StageManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.forward));
 
             // Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);
@@ -52,7 +52,7 @@ public class AlienMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (!GameManager.instance.IsTake)
+            if (!StageManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.back));
  
             //  Debug.DrawRay(target.transform.position, target.transform.up, Color.red, 1f);

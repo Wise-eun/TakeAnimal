@@ -14,51 +14,66 @@ public class CharecterController : MonoBehaviour
 
     public void MoveUp()
     {
-        StageManager.instance.IncreaseMove();
-        AnimalMoveOrder.Push(animal.gameObject.transform.position);
-        AlienMoveOrder.Push(alien.gameObject.transform.position);
+        if(!StageManager.instance.IsTake)
+        {
+            StageManager.instance.IncreaseMove();
+            AnimalMoveOrder.Push(animal.gameObject.transform.position);
+            AlienMoveOrder.Push(alien.gameObject.transform.position);
 
-        alien.UpMove();
-        animal.DownMove();
+            alien.UpMove();
+            animal.DownMove();
+        }
+      
 
     }
     public void MoveDown()
     {
-        StageManager.instance.IncreaseMove();
-        AnimalMoveOrder.Push(animal.gameObject.transform.position);
-        AlienMoveOrder.Push(alien.gameObject.transform.position);
-        alien.DownMove();
-        animal.UpMove();
+        if (!StageManager.instance.IsTake)
+        {
+            StageManager.instance.IncreaseMove();
+            AnimalMoveOrder.Push(animal.gameObject.transform.position);
+            AlienMoveOrder.Push(alien.gameObject.transform.position);
+            alien.DownMove();
+            animal.UpMove();
+        }
     }
     public void MoveRight()
     {
-        StageManager.instance.IncreaseMove();
-        AnimalMoveOrder.Push(animal.gameObject.transform.position);
-        AlienMoveOrder.Push(alien.gameObject.transform.position);
-        alien.RightMove();
-        animal.LeftMove();
+        if (!StageManager.instance.IsTake)
+        {
+            StageManager.instance.IncreaseMove();
+            AnimalMoveOrder.Push(animal.gameObject.transform.position);
+            AlienMoveOrder.Push(alien.gameObject.transform.position);
+            alien.RightMove();
+            animal.LeftMove();
+        }
     }
     public void MoveLeft()
     {
-        StageManager.instance.IncreaseMove();
-        AnimalMoveOrder.Push(animal.gameObject.transform.position);
-        AlienMoveOrder.Push(alien.gameObject.transform.position);
-        alien.LeftMove();
-        animal.RightMove();
+        if (!StageManager.instance.IsTake)
+        {
+            StageManager.instance.IncreaseMove();
+            AnimalMoveOrder.Push(animal.gameObject.transform.position);
+            AlienMoveOrder.Push(alien.gameObject.transform.position);
+            alien.LeftMove();
+            animal.RightMove();
+        }
 
     }
     int num;
     public void MoveRe()
     {
-        if (StageManager.instance.MoveNum != 0)
+        if (!StageManager.instance.IsTake)
         {
+            if (StageManager.instance.MoveNum != 0)
+            {
 
-            StageManager.instance.DecreaseMove();
-            StartCoroutine(animal.ReMoveToPosition(AnimalMoveOrder.Pop()));
-            alien.ReMove(AlienMoveOrder.Pop());
-            //animal.gameObject.transform.position = AnimalMoveOrder.Pop();
-            //alien.gameObject.transform.position = AlienMoveOrder.Pop();
+                StageManager.instance.DecreaseMove();
+                StartCoroutine(animal.ReMoveToPosition(AnimalMoveOrder.Pop()));
+                alien.ReMove(AlienMoveOrder.Pop());
+                //animal.gameObject.transform.position = AnimalMoveOrder.Pop();
+                //alien.gameObject.transform.position = AlienMoveOrder.Pop();
+            }
         }
-
     }
 }

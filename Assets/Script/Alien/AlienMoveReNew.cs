@@ -13,7 +13,7 @@ public class AlienMoveReNew : MonoBehaviour
     [SerializeField]
     Transform groundCheck;
 
-    bool taking = true;
+    public bool taking = false;
     bool light = true;
     GameObject alienLight;
     private void Start()
@@ -32,7 +32,7 @@ public class AlienMoveReNew : MonoBehaviour
 
     public void LeftMove()
     {
-        if (taking) 
+        if (!taking) 
         {
             groundCheck.transform.position = new Vector3(transform.position.x - 1.2f, groundCheck.position.y, transform.position.z);
             if(light)
@@ -56,7 +56,7 @@ public class AlienMoveReNew : MonoBehaviour
     }
     public void RightMove()
     {
-        if (taking)
+        if (!taking)
         {
             groundCheck.transform.position = new Vector3(transform.position.x + 1.2f, groundCheck.position.y, transform.position.z);
             if (light)
@@ -80,7 +80,7 @@ public class AlienMoveReNew : MonoBehaviour
     }
     public void UpMove()
     {
-        if (taking)
+        if (!taking)
         {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.2f);
             if (light)
@@ -106,7 +106,7 @@ public class AlienMoveReNew : MonoBehaviour
     }
     public void DownMove()
     {
-        if (taking)
+        if (!taking)
         {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.2f);
             if (light)
@@ -128,7 +128,7 @@ public class AlienMoveReNew : MonoBehaviour
             }
         }
     }
-
+/*
     void Update()
     {
         if (taking)
@@ -167,7 +167,7 @@ public class AlienMoveReNew : MonoBehaviour
             }
         }
     }
-
+*/
     IEnumerator CheckLight(float time)
     {
         yield return new WaitForSeconds(time);
@@ -188,8 +188,9 @@ public class AlienMoveReNew : MonoBehaviour
     {
         if (other.CompareTag("Animal"))
         {
-            taking = false;
-            GameManager.instance.IsTake = true;
+            // taking = false;
+            taking = true;
+            StageManager.instance.IsTake = true;
             other.GetComponent<AnimalMoveReNew>().StopAllCoroutines();
             StartCoroutine(Take(other.transform));
         }
@@ -204,7 +205,8 @@ public class AlienMoveReNew : MonoBehaviour
         //yield return new WaitForSeconds(0.3f);
        // animal.gameObject.SetActive(true);
        // animal.gameObject.GetComponent<NewAnimalMove>().ReVIVER();
-        taking = true;
+        taking = false;
+        StageManager.instance.StageFinish();
     }
 
     RaycastHit hit;

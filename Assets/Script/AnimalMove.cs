@@ -30,25 +30,25 @@ public class AnimalMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (!GameManager.instance.IsTake)
+            if (!StageManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.right));
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (!GameManager.instance.IsTake)
+            if (!StageManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.left));
 
         }
 
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (!GameManager.instance.IsTake)
+            if (!StageManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.back));
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (!GameManager.instance.IsTake)
+            if (!StageManager.instance.IsTake)
                 StartCoroutine(MoveToPosition(dir.forward));
         }
     }

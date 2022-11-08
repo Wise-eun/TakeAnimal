@@ -17,7 +17,7 @@ public class AnimalMoveReNew : MonoBehaviour
 
     [SerializeField]
     bool IsChapter4 = false;
-    bool IsSliding = false; //현재 미끄러져서 이동하는중인지 확인
+    public bool IsSliding = false; //현재 미끄러져서 이동하는중인지 확인
     public enum dir
     {
         left,
@@ -28,7 +28,7 @@ public class AnimalMoveReNew : MonoBehaviour
 
     public void RightMove()
     {
-        if (!(GameManager.instance.IsTake))
+        if (!(StageManager.instance.IsTake))
         {
             if(IsChapter4)
             {
@@ -58,7 +58,7 @@ public class AnimalMoveReNew : MonoBehaviour
     }
     public void LeftMove()
     {
-        if (!(GameManager.instance.IsTake))
+        if (!(StageManager.instance.IsTake))
         {
             if (IsChapter4)
             {
@@ -172,7 +172,7 @@ public class AnimalMoveReNew : MonoBehaviour
     public void UpMove()
     {
        
-        if (!(GameManager.instance.IsTake))
+        if (!(StageManager.instance.IsTake))
         {
             if (IsChapter4)
             {
@@ -198,7 +198,7 @@ public class AnimalMoveReNew : MonoBehaviour
 
     public void DownMove()
     {
-        if (!(GameManager.instance.IsTake))
+        if (!(StageManager.instance.IsTake))
         {
             if (IsChapter4)
             {
@@ -220,29 +220,29 @@ public class AnimalMoveReNew : MonoBehaviour
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.2f);
             StartCoroutine(MoveToPosition(dir.back));
         }
-    }
+    }/*
     void Update()
     {
         
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && !(GameManager.instance.IsTake))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && !(StageManager.instance.IsTake))
             {
             groundCheck.transform.position = new Vector3(transform.position.x + 1.2f, groundCheck.position.y, transform.position.z);
             StartCoroutine(MoveToPosition(dir.right));
 
         }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) && !(GameManager.instance.IsTake))
+            else if (Input.GetKeyDown(KeyCode.RightArrow) && !(StageManager.instance.IsTake))
             {
             groundCheck.transform.position = new Vector3(transform.position.x - 1.2f, groundCheck.position.y, transform.position.z);
             StartCoroutine(MoveToPosition(dir.left));
         }
 
-            else if (Input.GetKeyDown(KeyCode.UpArrow) && !(GameManager.instance.IsTake))
+            else if (Input.GetKeyDown(KeyCode.UpArrow) && !(StageManager.instance.IsTake))
             {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.2f);
             StartCoroutine(MoveToPosition(dir.back));
         }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow) && !(GameManager.instance.IsTake))
+            if (Input.GetKeyDown(KeyCode.DownArrow) && !(StageManager.instance.IsTake))
             {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.2f);
             StartCoroutine(MoveToPosition(dir.forward));
@@ -251,7 +251,7 @@ public class AnimalMoveReNew : MonoBehaviour
         }
         
     }
-
+    */
     Vector3 not_position;
     Vector3 jump_position;
     Vector3 move_position;

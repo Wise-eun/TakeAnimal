@@ -104,6 +104,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Script\AnimalMove.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\MainUIController.cs" />
     <Compile Include="Assets\Script\Obstacle\GroundMove.cs" />
     <Compile Include="Assets\DynamicStarrySky\Scripts\BaseStarDataRenderer.cs" />
     <Compile Include="Assets\VolumetricLights\Demos\Minimal\Scripts\ObjectRotate.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\DynamicStarrySky\Scripts\StarPoint.cs" />
+    <Compile Include="Assets\ChapterManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

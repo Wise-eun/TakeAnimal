@@ -38,7 +38,7 @@ public class AlienLightController : MonoBehaviour
                 if (hit.collider.CompareTag("Animal"))
                 {
                 
-                    GameManager.instance.IsTake = true;
+                    StageManager.instance.IsTake = true;
 
                     animal = hit.collider.gameObject;
                     StartCoroutine(TakeAnimal());
@@ -58,7 +58,7 @@ public class AlienLightController : MonoBehaviour
         animal.transform.DOMoveY(transform.position.y - 1f,1.5f);
         yield return new WaitForSeconds(1.5f);
         animal.SetActive(false);
-        GameManager.instance.IsTake = false;
+        StageManager.instance.IsTake = false;
     }
 
 
