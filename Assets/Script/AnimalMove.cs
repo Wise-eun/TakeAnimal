@@ -59,10 +59,20 @@ public class AnimalMove : MonoBehaviour
     Vector3 next_position;
     Quaternion rotation;
     float timeToMove = 0.07f;
+
+    Vector3 aniamlColliderSize;
+
+    private void Start()
+    {
+        aniamlColliderSize = transform.GetComponent<BoxCollider>().size;
+    }
+
     public IEnumerator MoveToPosition(dir direction)
     {
+        transform.GetComponent<BoxCollider>().size = new Vector3(0, 0, 0);
         height = transform.position.y;
         not_position = new Vector3(transform.position.x, height , transform.position.z);
+
         if (direction.Equals(dir.forward))
         {
             rotation = Quaternion.Euler(new Vector3(0, 0, 0));

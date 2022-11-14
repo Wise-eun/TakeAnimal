@@ -12,7 +12,6 @@ Material:
   m_ValidKeywords:
   - GRADIENT_BACKGROUND
   - STAR_LAYER_1
-  - STAR_LAYER_2
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -116,7 +115,7 @@ Material:
     - _StarLayer1Density: 0.0239
     - _StarLayer1EdgeFade: 0.819
     - _StarLayer1HDRBoost: 1.28
-    - _StarLayer1MaxRadius: 0.0114
+    - _StarLayer1MaxRadius: 0.0072
     - _StarLayer1RotationSpeed: 3
     - _StarLayer1TwinkleAmount: 0.927
     - _StarLayer1TwinkleSpeed: 2

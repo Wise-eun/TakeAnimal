@@ -34,6 +34,7 @@ public class AlienMoveReNew : MonoBehaviour
 
     public void LeftMove()
     {
+     
         if (!taking) 
         {
             groundCheck.transform.position = new Vector3(transform.position.x - 1.1f, groundCheck.position.y, transform.position.z);
@@ -55,10 +56,13 @@ public class AlienMoveReNew : MonoBehaviour
                     StartCoroutine(CheckLight(0.1f));
                 }
             }
-        }       
+        }
+ 
+      
     }
     public void RightMove()
     {
+   
         if (!taking)
         {
             groundCheck.transform.position = new Vector3(transform.position.x + 1.1f, groundCheck.position.y, transform.position.z);
@@ -81,9 +85,13 @@ public class AlienMoveReNew : MonoBehaviour
                 }
             }
         }
+
+
     }
     public void UpMove()
     {
+   
+
         if (!taking)
         {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
@@ -108,9 +116,12 @@ public class AlienMoveReNew : MonoBehaviour
         
   
         }
+
     }
     public void DownMove()
     {
+    
+    
         if (!taking)
         {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.1f);
@@ -133,6 +144,7 @@ public class AlienMoveReNew : MonoBehaviour
                 }
             }
         }
+     
     }
 /*
     void Update()
@@ -204,13 +216,18 @@ public class AlienMoveReNew : MonoBehaviour
 
     IEnumerator Take(Transform animal)
     {
-      
-        animal.DOMoveY(3f, 1f);
-        yield return new WaitForSeconds(1f);
+        animal.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        yield return new WaitForSeconds(0.2f);
+    
+        animal.transform.DOJump(animal.transform.position, 2f, 1, 1f);
+        yield return new WaitForSeconds(0.25f);
+        animal.DOMoveY(3.5f, 0.5f).SetEase(Ease.InCirc);
+ 
+        yield return new WaitForSeconds(0.5f);
+        
+
         animal.gameObject.SetActive(false);
-        //yield return new WaitForSeconds(0.3f);
-       // animal.gameObject.SetActive(true);
-       // animal.gameObject.GetComponent<NewAnimalMove>().ReVIVER();
+
         taking = false;
         StageManager.instance.IsTake = false;
         StageManager.instance.StageFinish();

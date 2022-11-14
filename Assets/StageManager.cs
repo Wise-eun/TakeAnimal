@@ -107,6 +107,7 @@ public class StageManager : MonoBehaviour
        
         for (int i=0;i< TargetMoveList[GameManager.instance.stageNum - 1];i++)
         {
+            animals[i].transform.localScale = new Vector3(1, 1, 1);
             animals[i].transform.position = animalStartPoss[i];
             animals[i].SetActive(true);
             animals[i].GetComponent<AnimalMoveReNew>().IsSliding = false;

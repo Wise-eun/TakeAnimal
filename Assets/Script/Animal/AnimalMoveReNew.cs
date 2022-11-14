@@ -25,6 +25,7 @@ public class AnimalMoveReNew : MonoBehaviour
         forward,
         back
     }
+   
 
     public void RightMove()
     {
@@ -261,6 +262,7 @@ public class AnimalMoveReNew : MonoBehaviour
 
     public IEnumerator ReMoveToPosition(Vector3 repos)
     {
+      
         not_position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
           jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
         move_position = new Vector3(repos.x, height + 1.7f, repos.z);
@@ -296,11 +298,10 @@ public class AnimalMoveReNew : MonoBehaviour
     public IEnumerator MoveToPosition(dir direction)
     {
         var t = 0f;
+       
 
-     
-    
 
-            height = 0;
+        height = 0;
             not_position = new Vector3(transform.position.x, height, transform.position.z);
             if (direction.Equals(dir.forward))
             {
@@ -373,8 +374,7 @@ public class AnimalMoveReNew : MonoBehaviour
 
         }
 
-
-
+  
 
     }
 
