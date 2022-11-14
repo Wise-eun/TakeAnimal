@@ -8,19 +8,22 @@ public class StageManager : MonoBehaviour
     //[SerializeField] GameObject CompleteHuman;
 
     public bool IsTake = false;
-    public int MoveNum=0, TargetNum;
+    public int MoveNum = 0, TargetNum;
     [SerializeField]
     TextMeshProUGUI move, target, level;
 
     public GameObject animal, alien;
     Vector3 animalStartPos, alienStartPos;
-
+    List<GameObject> animals = new List<GameObject>();
+    List<Vector3> animalStartPoss= new List<Vector3>();
+    int catchedAnimals = 0;
     [SerializeField]
-    List<GameObject> StageList = new List<GameObject>();
+    int StageListNum;
+    //List<GameObject> StageList = new List<GameObject>();
     [SerializeField]
     List<int> TargetMoveList = new List<int>();
     [SerializeField]
-     GameObject characterController;
+    GameObject characterController;
 
     [SerializeField]
     GameObject ResultUI;
@@ -30,46 +33,60 @@ public class StageManager : MonoBehaviour
         {
             instance = this;
         }
-      else if (instance != this)
+        else if (instance != this)
             Destroy(gameObject);
 
-       // DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
 
-        
+
     }
-
+    GameObject nowStage;
 
     private void Start()
     {
-        for(int i=0;i< StageList.Count;i++)
+        for (int i = 0; i < StageListNum; i++)
         {
-            if (GameManager.instance.stageNum == i+1)
+            if (GameManager.instance.stageNum == i + 1)
             {
-                StageList[i].SetActive(true);
-                Debug.Log(StageList[i].name + "활성화됨!");
-                alien = StageList[i].transform.GetChild(0).gameObject;
-                animal = StageList[i].transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
+                nowStage = transform.GetChild(i).gameObject;
+                nowStage.SetActive(true);
+                Debug.Log(nowStage.name + "활성화됨!");
+                alien = nowStage.transform.GetChild(0).gameObject;
+                animal = nowStage.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
                 Debug.Log(animal.name + "선택!");
                 Debug.Log(alien.name + "선택!");
                 level.text = "Stage " + (i + 1).ToString();
                 target.text = "Target <b>" + TargetMoveList[i].ToString() + "</b>";
+
+
+                for(int j=0;j< TargetMoveList[i];j++)
+                {
+                    animals.Add(nowStage.transform.GetChild(1 + j).gameObject.transform.GetChild(0).gameObject);
+                    animalStartPoss.Add(animals[j].transform.position);
+                }
+                    
             }
             else
-            StageList[i].SetActive(false);
+                transform.GetChild(i).gameObject.SetActive(false);
 
         }
         characterController.GetComponent<CharecterController>().alien = alien.GetComponent<AlienMoveReNew>();
-        characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
-        animalStartPos = animal.transform.position;
-        alienStartPos = alien.transform.position;
+        for (int j = 0; j < TargetMoveList[GameManager.instance.stageNum-1]; j++)
+        {
+            characterController.GetComponent<CharecterController>().animals.Add(animals[j].GetComponent<AnimalMoveReNew>());
+        }
+
+            // characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
+            //animalStartPos = animal.transform.position;
+            alienStartPos = alien.transform.position;
     }
-   
+
 
     public void IncreaseMove()
     {
         MoveNum++;
         move.text = "Move <b>" + MoveNum.ToString() + "</b>";
-       // move.text = MoveNum.ToString();
+        // move.text = MoveNum.ToString();
     }
     public void DecreaseMove()
     {
@@ -79,21 +96,33 @@ public class StageManager : MonoBehaviour
 
     public void ResetMove()
     {
-       
+        catchedAnimals = 0;
         MoveNum = 0;
         move.text = "Move <b>" + MoveNum.ToString() + "</b>";
-        animal.transform.position = animalStartPos;
+       // animal.transform.position = animalStartPos;
         alien.transform.position = alienStartPos;
-        animal.SetActive(true);
+       // animal.SetActive(true);
         IsTake = false;
         alien.GetComponent<AlienMoveReNew>().taking = false;
-        animal.GetComponent<AnimalMoveReNew>().IsSliding = false;
+       
+        for (int i=0;i< TargetMoveList[GameManager.instance.stageNum - 1];i++)
+        {
+            animals[i].transform.position = animalStartPoss[i];
+            animals[i].SetActive(true);
+            animals[i].GetComponent<AnimalMoveReNew>().IsSliding = false;
+        }
+       
         //   animal.GetComponent<AnimalMoveReNew>().StartCoroutine_Auto;
     }
 
     public void StageFinish()
     {
-        ResultUI.SetActive(true);
+        catchedAnimals++;
+        if (catchedAnimals == TargetMoveList[GameManager.instance.stageNum - 1])
+        {
+            ResultUI.SetActive(true);
+        }
+   
     }
     public void RetryStage()
     {
@@ -107,28 +136,51 @@ public class StageManager : MonoBehaviour
     }
     public void NextLevel()
     {
-        ResultUI.SetActive(false);
-        StageList[GameManager.instance.stageNum-1].SetActive(false);
-        GameManager.instance.stageNum++;
-        StageList[GameManager.instance.stageNum -1].SetActive(true);
-        alien = StageList[GameManager.instance.stageNum - 1].transform.GetChild(0).gameObject;
-        animal = StageList[GameManager.instance.stageNum - 1].transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
+       
 
-        MoveNum = 0;
-        TargetNum = TargetMoveList[GameManager.instance.stageNum - 1];
+            catchedAnimals = 0;
+            nowStage = transform.GetChild(GameManager.instance.stageNum - 1).gameObject;
+            ResultUI.SetActive(false);
+            nowStage.SetActive(false);
+            GameManager.instance.stageNum++;
+            nowStage = transform.GetChild(GameManager.instance.stageNum - 1).gameObject;
+            nowStage.SetActive(true);
 
-        level.text = "Stage " + GameManager.instance.stageNum.ToString();
-        target.text = "Target <b>" + TargetMoveList[GameManager.instance.stageNum-1].ToString() + "</b>";
-        move.text = "Move <b>" + MoveNum.ToString() + "</b>";
+            alien = nowStage.transform.GetChild(0).gameObject;
+            animals.Clear();
+            animalStartPoss.Clear();
+            for (int i = 0; i < TargetMoveList[GameManager.instance.stageNum - 1]; i++)
+            {
+                animals.Add(nowStage.transform.GetChild(1 + i).gameObject.transform.GetChild(0).gameObject);
+                animalStartPoss.Add(animals[i].transform.position);
+                animals[i].GetComponent<AnimalMoveReNew>().IsSliding = false;
+            }
 
-        characterController.GetComponent<CharecterController>().alien = alien.GetComponent<AlienMoveReNew>();
-        characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
-        animalStartPos = animal.transform.position;
-        alienStartPos = alien.transform.position;
 
-        IsTake = false;
-        alien.GetComponent<AlienMoveReNew>().taking = false;
-        animal.GetComponent<AnimalMoveReNew>().IsSliding = false;
+
+            // animal = nowStage.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
+
+            MoveNum = 0;
+            TargetNum = TargetMoveList[GameManager.instance.stageNum - 1];
+
+            level.text = "Stage " + GameManager.instance.stageNum.ToString();
+            target.text = "Target <b>" + TargetMoveList[GameManager.instance.stageNum - 1].ToString() + "</b>";
+            move.text = "Move <b>" + MoveNum.ToString() + "</b>";
+
+            characterController.GetComponent<CharecterController>().alien = alien.GetComponent<AlienMoveReNew>();
+            characterController.GetComponent<CharecterController>().animals.Clear();
+            for (int j = 0; j < TargetMoveList[GameManager.instance.stageNum - 1]; j++)
+            {
+                characterController.GetComponent<CharecterController>().animals.Add(animals[j].GetComponent<AnimalMoveReNew>());
+            }
+            //  characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
+            // animalStartPos = animal.transform.position;
+            alienStartPos = alien.transform.position;
+
+            IsTake = false;
+            alien.GetComponent<AlienMoveReNew>().taking = false;
+            // animal.GetComponent<AnimalMoveReNew>().IsSliding = false;
+     
     }
 
 

@@ -17,8 +17,8 @@ TagManager:
   - lightGround
   - waterGround
   - slideGround
-  - New tag
   - GameManager
+  - Alien
   layers:
   - Default
   - TransparentFX

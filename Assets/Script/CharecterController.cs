@@ -12,16 +12,19 @@ public class CharecterController : MonoBehaviour
     Stack<Vector3> AnimalMoveOrder = new Stack<Vector3>();
     Stack<Vector3> AlienMoveOrder = new Stack<Vector3>();
 
+    public List<AnimalMoveReNew> animals = new List<AnimalMoveReNew>();
     public void MoveUp()
     {
         if(!StageManager.instance.IsTake)
         {
             StageManager.instance.IncreaseMove();
-            AnimalMoveOrder.Push(animal.gameObject.transform.position);
+           // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
 
             alien.UpMove();
-            animal.DownMove();
+            // animal.DownMove();
+            for (int i = 0; i < animals.Count; i++)
+                animals[i].DownMove();
         }
       
 
@@ -31,10 +34,12 @@ public class CharecterController : MonoBehaviour
         if (!StageManager.instance.IsTake)
         {
             StageManager.instance.IncreaseMove();
-            AnimalMoveOrder.Push(animal.gameObject.transform.position);
+           // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
             alien.DownMove();
-            animal.UpMove();
+            //animal.UpMove();
+            for (int i = 0; i < animals.Count; i++)
+                animals[i].UpMove();
         }
     }
     public void MoveRight()
@@ -42,10 +47,12 @@ public class CharecterController : MonoBehaviour
         if (!StageManager.instance.IsTake)
         {
             StageManager.instance.IncreaseMove();
-            AnimalMoveOrder.Push(animal.gameObject.transform.position);
+           // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
             alien.RightMove();
-            animal.LeftMove();
+            // animal.LeftMove();
+            for (int i = 0; i < animals.Count; i++)
+                animals[i].LeftMove();
         }
     }
     public void MoveLeft()
@@ -53,10 +60,12 @@ public class CharecterController : MonoBehaviour
         if (!StageManager.instance.IsTake)
         {
             StageManager.instance.IncreaseMove();
-            AnimalMoveOrder.Push(animal.gameObject.transform.position);
+          //  AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
             alien.LeftMove();
-            animal.RightMove();
+            // animal.RightMove();
+            for (int i = 0; i < animals.Count; i++)
+                animals[i].RightMove();
         }
 
     }

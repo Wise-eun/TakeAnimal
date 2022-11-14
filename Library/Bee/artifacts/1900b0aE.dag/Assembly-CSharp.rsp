@@ -398,6 +398,7 @@
 "Assets/Script/Obstacle/GroundMove.cs"
 "Assets/Script/SoulController.cs"
 "Assets/Script/SoulLightController.cs"
+"Assets/Script/StageManagerReNew.cs"
 "Assets/Script/UI/GameResult.cs"
 "Assets/Script/UI/UIAnimation.cs"
 "Assets/Script/UI/UIButtonEvent.cs"
