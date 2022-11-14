@@ -90,6 +90,7 @@ public class StageManagerReNew : MonoBehaviour
         IsTake = false;
         alien.GetComponent<AlienMoveReNew>().taking = false;
         animal.GetComponent<AnimalMoveReNew>().IsSliding = false;
+        CharecterController.instance.newlogics = 0;
         //   animal.GetComponent<AnimalMoveReNew>().StartCoroutine_Auto;
     }
 
@@ -133,6 +134,7 @@ public class StageManagerReNew : MonoBehaviour
         IsTake = false;
         alien.GetComponent<AlienMoveReNew>().taking = false;
         animal.GetComponent<AnimalMoveReNew>().IsSliding = false;
+        CharecterController.instance.newlogics = 0;
     }
 
 

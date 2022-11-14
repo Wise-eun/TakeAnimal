@@ -4,19 +4,70 @@ using UnityEngine;
 
 public class CharecterController : MonoBehaviour
 {
-   
-   public  AlienMoveReNew alien;  
+    public static CharecterController instance = null;
+    public  AlienMoveReNew alien;  
    public  AnimalMoveReNew animal;
 
     bool Re = false;
     Stack<Vector3> AnimalMoveOrder = new Stack<Vector3>();
     Stack<Vector3> AlienMoveOrder = new Stack<Vector3>();
 
+    public bool newLogic = false;
+    public int newlogics = 0;
     public List<AnimalMoveReNew> animals = new List<AnimalMoveReNew>();
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+            Destroy(gameObject);
+
+        // DontDestroyOnLoad(gameObject);
+
+
+    }
+
+    public void NewLogicMove() //³²³²µ¿ºÏ
+    {
+        if(newlogics ==0)
+        {
+            for (int i = 0; i < animals.Count; i++)
+                animals[i].DownMove();
+            newlogics++;
+        }
+       else if (newlogics == 1)
+        {
+            for (int i = 0; i < animals.Count; i++)
+                animals[i].DownMove();
+            newlogics++;
+        }
+        else if (newlogics == 2)
+        {
+            for (int i = 0; i < animals.Count; i++)
+                animals[i].RightMove();
+            newlogics++;
+        }
+        else if (newlogics == 3)
+        {
+            for (int i = 0; i < animals.Count; i++)
+                animals[i].UpMove();
+            newlogics= 0;
+        }
+
+    }
     public void MoveUp()
     {
         if(!StageManager.instance.IsTake)
         {
+            if(newLogic)
+            {
+                alien.UpMove();
+                NewLogicMove();
+                return;
+            }
+
             StageManager.instance.IncreaseMove();
            // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
@@ -33,6 +84,13 @@ public class CharecterController : MonoBehaviour
     {
         if (!StageManager.instance.IsTake)
         {
+            if (newLogic)
+            {
+                alien.DownMove();
+                NewLogicMove();
+                return;
+            }
+
             StageManager.instance.IncreaseMove();
            // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
@@ -46,6 +104,13 @@ public class CharecterController : MonoBehaviour
     {
         if (!StageManager.instance.IsTake)
         {
+            if (newLogic)
+            {
+                alien.RightMove();
+                NewLogicMove();
+                return;
+            }
+
             StageManager.instance.IncreaseMove();
            // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
@@ -59,6 +124,13 @@ public class CharecterController : MonoBehaviour
     {
         if (!StageManager.instance.IsTake)
         {
+            if (newLogic)
+            {
+                alien.LeftMove();
+                NewLogicMove();
+                return;
+            }
+
             StageManager.instance.IncreaseMove();
           //  AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);

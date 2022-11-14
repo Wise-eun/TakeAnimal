@@ -385,6 +385,7 @@
 "Assets/MainUIController.cs"
 "Assets/Script/Alien/AlienLightController.cs"
 "Assets/Script/Alien/AlienMove.cs"
+"Assets/Script/Alien/AlienMoveNewLogic.cs"
 "Assets/Script/Alien/AlienMoveReNew.cs"
 "Assets/Script/Animal/AnimalMoveReNew.cs"
 "Assets/Script/AnimalMove.cs"

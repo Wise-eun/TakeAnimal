@@ -27,6 +27,7 @@ public class StageManager : MonoBehaviour
 
     [SerializeField]
     GameObject ResultUI;
+   
     void Awake()
     {
         if (instance == null)
@@ -112,7 +113,7 @@ public class StageManager : MonoBehaviour
             animals[i].SetActive(true);
             animals[i].GetComponent<AnimalMoveReNew>().IsSliding = false;
         }
-       
+        CharecterController.instance.newlogics = 0;
         //   animal.GetComponent<AnimalMoveReNew>().StartCoroutine_Auto;
     }
 
@@ -180,8 +181,8 @@ public class StageManager : MonoBehaviour
 
             IsTake = false;
             alien.GetComponent<AlienMoveReNew>().taking = false;
-            // animal.GetComponent<AnimalMoveReNew>().IsSliding = false;
-     
+        // animal.GetComponent<AnimalMoveReNew>().IsSliding = false;
+        CharecterController.instance.newlogics = 0;
     }
 
 
