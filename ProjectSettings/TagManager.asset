@@ -19,6 +19,7 @@ TagManager:
   - slideGround
   - GameManager
   - Alien
+  - targetGround
   layers:
   - Default
   - TransparentFX

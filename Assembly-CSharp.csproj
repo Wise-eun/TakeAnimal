@@ -60,6 +60,7 @@
     <Compile Include="Assets\Script\Joystick.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+    <Compile Include="Assets\Script\Alien\AlienMoveNewLogic.cs" />
     <Compile Include="Assets\VolumetricLights\Demos\Minimal\Scripts\CubeGen.cs" />
     <Compile Include="Assets\StageManager.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
@@ -124,7 +125,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\DynamicStarrySky\Scripts\StarPoint.cs" />
-    <Compile Include="Assets\Script\Alien\AlienMoveNewLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

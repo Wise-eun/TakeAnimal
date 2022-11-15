@@ -383,7 +383,7 @@ public class AnimalMoveReNew : MonoBehaviour
     {
         if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
         {         
-            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("lightGround"))
+            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("lightGround") || hit.collider.CompareTag("targetGround"))
             {
                 IsWater = false;
                 //InWater = false;
@@ -414,6 +414,14 @@ public class AnimalMoveReNew : MonoBehaviour
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("targetGround"))
+        {
+            StageManager.instance.IsTake = false;
+            StageManager.instance.StageFinish();
+        }
 
+    }
 
 }
