@@ -20,6 +20,7 @@ TagManager:
   - GameManager
   - Alien
   - targetGround
+  - small
   layers:
   - Default
   - TransparentFX

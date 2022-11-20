@@ -12,9 +12,11 @@ public class AnimalMoveReNew : MonoBehaviour
     bool IsWater = false;
     bool InWater = false;
 
+    
     [SerializeField]
     Transform groundCheck;
-
+    [SerializeField]
+    Transform smallAnimalCheck;
     [SerializeField]
     bool IsChapter4 = false;
     public bool IsSliding = false; //현재 미끄러져서 이동하는중인지 확인
@@ -47,6 +49,7 @@ public class AnimalMoveReNew : MonoBehaviour
             if (InWater)
             {
                 groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
+               
                 GroundCheck();
                 if (IsWater) //다음 지역도 물이라면
                     transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
@@ -54,6 +57,8 @@ public class AnimalMoveReNew : MonoBehaviour
                 return;
             }
             groundCheck.transform.position = new Vector3(transform.position.x + 1.1f, groundCheck.position.y, transform.position.z);
+            smallAnimalCheck.position = new Vector3(transform.position.x + 1.1f, smallAnimalCheck.position.y, transform.position.z );
+            
             StartCoroutine(MoveToPosition(dir.right));
         }          
     }
@@ -75,6 +80,7 @@ public class AnimalMoveReNew : MonoBehaviour
             if (InWater)
             {
                 groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
+                smallAnimalCheck.position = new Vector3(transform.position.x, smallAnimalCheck.position.y, transform.position.z + 1.1f);
                 GroundCheck();
                 if (IsWater) //다음 지역도 물이라면
                     transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
@@ -82,6 +88,7 @@ public class AnimalMoveReNew : MonoBehaviour
                 return;
             }
             groundCheck.transform.position = new Vector3(transform.position.x - 1.1f, groundCheck.position.y, transform.position.z);
+            smallAnimalCheck.position = new Vector3(transform.position.x - 1.1f, smallAnimalCheck.position.y, transform.position.z);
             StartCoroutine(MoveToPosition(dir.left));
         }
     }
@@ -186,6 +193,7 @@ public class AnimalMoveReNew : MonoBehaviour
             if (InWater)
             {
                 groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
+                smallAnimalCheck.position = new Vector3(transform.position.x, smallAnimalCheck.position.y, transform.position.z + 1.1f);
                 GroundCheck();
                 if (IsWater) //다음 지역도 물이라면
                     transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
@@ -193,6 +201,7 @@ public class AnimalMoveReNew : MonoBehaviour
                 return;
             }
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
+            smallAnimalCheck.position = new Vector3(transform.position.x, smallAnimalCheck.position.y, transform.position.z + 1.1f);
             StartCoroutine(MoveToPosition(dir.forward));
         }
     }
@@ -219,40 +228,10 @@ public class AnimalMoveReNew : MonoBehaviour
                 return;
             }
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.1f);
+            smallAnimalCheck.position = new Vector3(transform.position.x, smallAnimalCheck.position.y, transform.position.z - 1.1f);
             StartCoroutine(MoveToPosition(dir.back));
         }
-    }/*
-    void Update()
-    {
-        
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && !(StageManager.instance.IsTake))
-            {
-            groundCheck.transform.position = new Vector3(transform.position.x + 1.1f, groundCheck.position.y, transform.position.z);
-            StartCoroutine(MoveToPosition(dir.right));
-
-        }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) && !(StageManager.instance.IsTake))
-            {
-            groundCheck.transform.position = new Vector3(transform.position.x - 1.1f, groundCheck.position.y, transform.position.z);
-            StartCoroutine(MoveToPosition(dir.left));
-        }
-
-            else if (Input.GetKeyDown(KeyCode.UpArrow) && !(StageManager.instance.IsTake))
-            {
-            groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.1f);
-            StartCoroutine(MoveToPosition(dir.back));
-        }
-
-            if (Input.GetKeyDown(KeyCode.DownArrow) && !(StageManager.instance.IsTake))
-            {
-            groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
-            StartCoroutine(MoveToPosition(dir.forward));
-
-
-        }
-        
     }
-    */
     Vector3 not_position;
     Vector3 jump_position;
     Vector3 move_position;
@@ -264,7 +243,7 @@ public class AnimalMoveReNew : MonoBehaviour
     {
       
         not_position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-          jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
+        jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
         move_position = new Vector3(repos.x, height + 1.7f, repos.z);
         next_position = new Vector3(repos.x, height, repos.z);
 
@@ -306,86 +285,103 @@ public class AnimalMoveReNew : MonoBehaviour
             if (direction.Equals(dir.forward))
             {
                 rotation = Quaternion.Euler(new Vector3(0, -90, 0));
-            transform.DORotate(new Vector3(0, -90, 0), 0.1f);
+                transform.DORotate(new Vector3(0, -90, 0), 0.1f);
+                next_position = new Vector3(transform.position.x, height, transform.position.z + 1.1f);
 
-            next_position = new Vector3(transform.position.x, height, transform.position.z + 1.1f);
-
-            if(GroundCheck())
-            {
+                if(GroundCheck())
+                {
+                CharecterController.instance.SaveAnimalPos(-90);
                 transform.DOJump(next_position, 1f, 1, 0.2f);
-            }
-            else
-                transform.DOJump(not_position, 1f, 1, 0.2f);
+                }
+                else
+                    transform.DOJump(not_position, 1f, 1, 0.2f);
 
-            yield return new WaitForSeconds(1f);
+            //yield return new WaitForSeconds(1f);
 
         }
         else if (direction.Equals(dir.back))
             {
                 rotation = Quaternion.Euler(new Vector3(0, 90, 0));
-            transform.DORotate(new Vector3(0, 90, 0), 0.1f);
-            jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
+                transform.DORotate(new Vector3(0, 90, 0), 0.1f);
+                jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
                 move_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z - 1.1f);
                 next_position = new Vector3(transform.position.x, height, transform.position.z - 1.1f);
 
-            if (GroundCheck())
-            {
-                // transform.DOMoveZ(1.1f,0.3f).
+                if (GroundCheck())
+                {
+                CharecterController.instance.SaveAnimalPos(90);
                 transform.DOJump(next_position, 1f, 1, 0.2f);
-            }
-            else
-                transform.DOJump(not_position, 1f, 1, 0.2f);
+                }
+                else
+                    transform.DOJump(not_position, 1f, 1, 0.2f);
 
-            yield return new WaitForSeconds(1f);
+           // yield return new WaitForSeconds(1f);
         }
             else if (direction.Equals(dir.right))
             {
                 rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-            transform.DORotate(new Vector3(0, 0, 0), 0.1f);
-            jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
+                transform.DORotate(new Vector3(0, 0, 0), 0.1f);
+                jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
                 move_position = new Vector3(transform.position.x + 1.1f, height + 1.7f, transform.position.z);
                 next_position = new Vector3(transform.position.x + 1.1f, height, transform.position.z);
 
-            if (GroundCheck())
-            {
-                // transform.DOMoveZ(1.1f,0.3f).
+                if (GroundCheck())
+                {
+                CharecterController.instance.SaveAnimalPos(0);
                 transform.DOJump(next_position, 1f, 1, 0.2f);
+                }
+                else
+                    transform.DOJump(not_position, 1f, 1, 0.2f);
+                
+            
             }
-            else
-                transform.DOJump(not_position, 1f, 1, 0.2f);
-
-            //yield return new WaitForSeconds(0.5f);
-        }
             else
             {
                 rotation = Quaternion.Euler(new Vector3(0, 180, 0));
-            transform.DORotate(new Vector3(0, 180, 0),0.1f);
-            jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
+                transform.DORotate(new Vector3(0, 180, 0),0.1f);
+                jump_position = new Vector3(transform.position.x, height + 1.7f, transform.position.z);
                 move_position = new Vector3(transform.position.x - 1.1f, height + 1.7f, transform.position.z);
                 next_position = new Vector3(transform.position.x - 1.1f, height, transform.position.z);
 
-            if (GroundCheck())
-            {
-                // transform.DOMoveZ(1.1f,0.3f).
+                if (GroundCheck())
+                {
+                CharecterController.instance.SaveAnimalPos(180);
                 transform.DOJump(next_position, 1f, 1, 0.2f);
-            }
-            else
-                transform.DOJump(not_position, 1f, 1, 0.2f);
+                }                 
+                else
+                    transform.DOJump(not_position, 1f, 1, 0.2f);
 
         }
 
-  
+        yield return new WaitForSeconds(1f);
 
     }
 
     RaycastHit hit;
+    RaycastHit animalHit;
     public bool GroundCheck()
     {
+        Debug.DrawRay(smallAnimalCheck.position, smallAnimalCheck.transform.up, Color.red, 1f);
+        if (Physics.Raycast(smallAnimalCheck.position, smallAnimalCheck.transform.up, out animalHit))
+        {
+
+            Debug.Log(animalHit.collider.name);
+            if (animalHit.collider.CompareTag("small"))
+            {
+                Debug.Log("동물이 바로앞에 있어요!");
+                CharecterController.instance.smalls.Add(animalHit.collider.gameObject.GetComponent< SmallAnimalMove>());
+                animalHit.collider.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.44f, 0.58f, 0.31f);
+                animalHit.collider.gameObject.tag = "Mysmall";
+                //return false;
+            }
+
+        }
         if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
         {         
             if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("lightGround") || hit.collider.CompareTag("targetGround"))
             {
                 IsWater = false;
+                
                 //InWater = false;
                 return true;
             }

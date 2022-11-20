@@ -403,6 +403,7 @@
 "Assets/Script/UI/GameResult.cs"
 "Assets/Script/UI/UIAnimation.cs"
 "Assets/Script/UI/UIButtonEvent.cs"
+"Assets/SmallAnimalMove.cs"
 "Assets/StageManager.cs"
 "Assets/Suriyun/Spacecraft Mini/Scripts/Swapper.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"

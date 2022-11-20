@@ -12,6 +12,12 @@ public class CharecterController : MonoBehaviour
     Stack<Vector3> AnimalMoveOrder = new Stack<Vector3>();
     Stack<Vector3> AlienMoveOrder = new Stack<Vector3>();
 
+
+    public List<SmallAnimalMove> smalls = new List<SmallAnimalMove>();
+    public List<Vector3> smallsPos = new List<Vector3>();
+    public List<float> smallsRotation = new List<float>();
+    int Posnum = 3;
+
     public bool newLogic = false;
     public int newlogics = 0;
     public List<AnimalMoveReNew> animals = new List<AnimalMoveReNew>();
@@ -26,7 +32,13 @@ public class CharecterController : MonoBehaviour
 
         // DontDestroyOnLoad(gameObject);
 
-
+        for (int i = 0; i < Posnum; i++)
+        {
+            smallsPos.Add(new Vector3(0, 0, 0));
+            smallsRotation.Add(0);
+        }
+            
+        Posnum = 0;
     }
 
     public void NewLogicMove() //³²³²µ¿ºÏ
@@ -57,8 +69,24 @@ public class CharecterController : MonoBehaviour
         }
 
     }
+
+    public void SaveAnimalPos(float rotation)
+    {
+        //if (Posnum > 2)
+        //Posnum = 0;
+
+        smallsPos[2] = smallsPos[1];
+        smallsRotation[2] = smallsRotation[1];
+
+        smallsPos[1] = smallsPos[0];
+        smallsRotation[1] = smallsRotation[0];
+
+        smallsPos[0] = new Vector3(animal.transform.position.x, animal.transform.position.y+0.4f, animal.transform.position.z);
+        smallsRotation[0] = rotation;
+    }
     public void MoveUp()
     {
+
         if(!StageManager.instance.IsTake)
         {
             if(newLogic)
@@ -72,10 +100,10 @@ public class CharecterController : MonoBehaviour
            // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
 
-            alien.UpMove();
-            // animal.DownMove();
-            for (int i = 0; i < animals.Count; i++)
-                animals[i].DownMove();
+            alien.UpMove();     
+             animal.DownMove();
+            for (int i = 0; i < smalls.Count; i++)
+                smalls[i].Move(smallsPos[i], smallsRotation[i]);
         }
       
 
@@ -95,9 +123,10 @@ public class CharecterController : MonoBehaviour
            // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
             alien.DownMove();
-            //animal.UpMove();
-            for (int i = 0; i < animals.Count; i++)
-                animals[i].UpMove();
+            animal.UpMove();
+            for (int i = 0; i < smalls.Count; i++)
+                smalls[i].Move(smallsPos[i], smallsRotation[i]);
+
         }
     }
     public void MoveRight()
@@ -115,9 +144,10 @@ public class CharecterController : MonoBehaviour
            // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
             alien.RightMove();
-            // animal.LeftMove();
-            for (int i = 0; i < animals.Count; i++)
-                animals[i].LeftMove();
+             animal.LeftMove();
+            for (int i = 0; i < smalls.Count; i++)
+                smalls[i].Move(smallsPos[i], smallsRotation[i]);
+
         }
     }
     public void MoveLeft()
@@ -135,9 +165,9 @@ public class CharecterController : MonoBehaviour
           //  AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
             alien.LeftMove();
-            // animal.RightMove();
-            for (int i = 0; i < animals.Count; i++)
-                animals[i].RightMove();
+             animal.RightMove();
+            for (int i = 0; i < smalls.Count; i++)
+                smalls[i].Move(smallsPos[i], smallsRotation[i]);
         }
 
     }

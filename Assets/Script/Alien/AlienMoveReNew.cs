@@ -204,12 +204,12 @@ public class AlienMoveReNew : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Animal"))
+        if (other.CompareTag("Animal") || other.CompareTag("Mysmall"))
         {
             // taking = false;
             taking = true;
             StageManager.instance.IsTake = true;
-            other.GetComponent<AnimalMoveReNew>().StopAllCoroutines();
+           // other.GetComponent<AnimalMoveReNew>().StopAllCoroutines();
             StartCoroutine(Take(other.transform));
         }
     }
