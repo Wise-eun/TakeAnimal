@@ -365,10 +365,10 @@ public class AnimalMoveReNew : MonoBehaviour
         if (Physics.Raycast(smallAnimalCheck.position, smallAnimalCheck.transform.up, out animalHit))
         {
 
-            Debug.Log(animalHit.collider.name);
+            //Debug.Log(animalHit.collider.name);
             if (animalHit.collider.CompareTag("small"))
             {
-                Debug.Log("동물이 바로앞에 있어요!");
+               // Debug.Log("동물이 바로앞에 있어요!");
                 CharecterController.instance.smalls.Add(animalHit.collider.gameObject.GetComponent< SmallAnimalMove>());
                 animalHit.collider.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.44f, 0.58f, 0.31f);
                 animalHit.collider.gameObject.tag = "Mysmall";
@@ -377,14 +377,22 @@ public class AnimalMoveReNew : MonoBehaviour
 
         }
         if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
-        {         
-            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("lightGround") || hit.collider.CompareTag("targetGround"))
+        {
+            if (hit.collider.CompareTag("targetGround"))
+            {
+                StageManager.instance.IsTake = false;
+                StageManager.instance.StageFinish();
+                return true;
+            }
+            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("lightGround") )
             {
                 IsWater = false;
                 
                 //InWater = false;
                 return true;
             }
+
+       
             if (hit.collider.CompareTag("waterGround") )
             {
                 Debug.Log("물이당!");

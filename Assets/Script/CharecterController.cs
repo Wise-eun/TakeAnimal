@@ -21,6 +21,10 @@ public class CharecterController : MonoBehaviour
     public bool newLogic = false;
     public int newlogics = 0;
     public List<AnimalMoveReNew> animals = new List<AnimalMoveReNew>();
+
+    [SerializeField]
+    AudioSource moveSound;
+
     void Awake()
     {
         if (instance == null)
@@ -86,8 +90,8 @@ public class CharecterController : MonoBehaviour
     }
     public void MoveUp()
     {
-
-        if(!StageManager.instance.IsTake)
+        moveSound.Play();
+        if (!StageManager.instance.IsTake)
         {
             if(newLogic)
             {
@@ -110,6 +114,7 @@ public class CharecterController : MonoBehaviour
     }
     public void MoveDown()
     {
+        moveSound.Play();
         if (!StageManager.instance.IsTake)
         {
             if (newLogic)
@@ -131,6 +136,7 @@ public class CharecterController : MonoBehaviour
     }
     public void MoveRight()
     {
+        moveSound.Play();
         if (!StageManager.instance.IsTake)
         {
             if (newLogic)
@@ -152,6 +158,7 @@ public class CharecterController : MonoBehaviour
     }
     public void MoveLeft()
     {
+        moveSound.Play();
         if (!StageManager.instance.IsTake)
         {
             if (newLogic)

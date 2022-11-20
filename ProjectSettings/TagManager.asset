@@ -4,11 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Road_human
-  - Road_soul
-  - Soul_Light
-  - Human_Light
-  - Soul
   - ground
   - Animal
   - cloud
@@ -21,6 +16,7 @@ TagManager:
   - Alien
   - targetGround
   - small
+  - Mysmall
   layers:
   - Default
   - TransparentFX

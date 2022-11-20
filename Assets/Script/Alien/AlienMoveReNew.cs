@@ -17,6 +17,8 @@ public class AlienMoveReNew : MonoBehaviour
     public bool taking = false;
     bool light = true;
     GameObject alienLight;
+    [SerializeField]
+    AudioSource takeSound;
     private void Start()
     {
         alienLight = transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
@@ -204,18 +206,27 @@ public class AlienMoveReNew : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Animal") || other.CompareTag("Mysmall"))
+
+        if (other.CompareTag("Animal"))
         {
+
             // taking = false;
             taking = true;
             StageManager.instance.IsTake = true;
            // other.GetComponent<AnimalMoveReNew>().StopAllCoroutines();
-            StartCoroutine(Take(other.transform));
+            StartCoroutine(Take(other.transform, true));
+        }
+        else if (other.CompareTag("Mysmall"))
+        {
+            taking = true;
+            StageManager.instance.IsTake = true;
+            StartCoroutine(Take(other.transform, false));
         }
     }
 
-    IEnumerator Take(Transform animal)
+    IEnumerator Take(Transform animal, bool IsAnimal)
     {
+        takeSound.Play();
         animal.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         yield return new WaitForSeconds(0.2f);
     
@@ -230,7 +241,9 @@ public class AlienMoveReNew : MonoBehaviour
 
         taking = false;
         StageManager.instance.IsTake = false;
-        StageManager.instance.StageFinish();
+       // StageManager.instance.StageFinish();
+       if(IsAnimal)
+        StageManager.instance.StageFail();
     }
 
     RaycastHit hit;
@@ -269,14 +282,18 @@ public class AlienMoveReNew : MonoBehaviour
                 Debug.Log("동물이 바로앞에 있어요!");
                 return false;
             }
-
+            if(animalHit.collider.CompareTag("Mysmall"))
+            {
+                Debug.Log("쪼꼬미가 바로앞에 있어요!");
+                return true;
+            }
         }
         if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
         {
      
           
             
-            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("highGround") || hit.collider.CompareTag("waterGround") || hit.collider.CompareTag("slideGround"))
+            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("highGround") || hit.collider.CompareTag("waterGround") || hit.collider.CompareTag("targetGround") )
             {
                 light = true;
                 return true;

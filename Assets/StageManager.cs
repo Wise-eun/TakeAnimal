@@ -13,6 +13,8 @@ public class StageManager : MonoBehaviour
     TextMeshProUGUI move, target, level;
 
     public GameObject animal, alien;
+    public List<GameObject> smallAnimals = new List<GameObject>();
+    public List<Vector3> smallAnimalsPos = new List<Vector3>();
     Vector3 animalStartPos, alienStartPos;
     //List<GameObject> animals = new List<GameObject>();
    // List<Vector3> animalStartPoss= new List<Vector3>();
@@ -27,7 +29,8 @@ public class StageManager : MonoBehaviour
 
     [SerializeField]
     GameObject ResultUI;
-   
+    [SerializeField]
+    GameObject ResultFail;
     void Awake()
     {
         if (instance == null)
@@ -59,7 +62,13 @@ public class StageManager : MonoBehaviour
                 level.text = "Stage " + (i + 1).ToString();
                 target.text = "Target <b>" + TargetMoveList[i].ToString() + "</b>";
 
-
+                for (int j = 0; j < TargetMoveList[i]; j++)
+                {
+                    smallAnimals.Add(nowStage.transform.GetChild(1).gameObject.transform.GetChild(j + 1).gameObject);
+                    smallAnimalsPos.Add(smallAnimals[j].transform.position);
+                    smallAnimals[j].tag = "small";
+                }
+                    
                
             }
             else
@@ -72,7 +81,7 @@ public class StageManager : MonoBehaviour
 
 
             // characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
-            //animalStartPos = animal.transform.position;
+           animalStartPos = animal.transform.position;
             alienStartPos = alien.transform.position;
     }
 
@@ -97,10 +106,21 @@ public class StageManager : MonoBehaviour
         animal.transform.position = animalStartPos;
         alien.transform.position = alienStartPos;
         animal.transform.localScale = new Vector3(1, 1, 1);
-         animal.SetActive(true);
+        animal.SetActive(true);
         IsTake = false;
         alien.GetComponent<AlienMoveReNew>().taking = false;
-    
+        for (int i = 0; i < smallAnimals.Count; i++)
+        {
+            smallAnimals[i].transform.position = smallAnimalsPos[i];
+            smallAnimals[i].SetActive(true);
+            smallAnimals[i].tag = "small";
+            smallAnimals[i].GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
+
+        }
+        CharecterController.instance.smalls.Clear();
+
+
+
         CharecterController.instance.newlogics = 0;
         //   animal.GetComponent<AnimalMoveReNew>().StartCoroutine_Auto;
     }
@@ -108,20 +128,27 @@ public class StageManager : MonoBehaviour
     public void StageFinish()
     {
         catchedAnimals++;
-        if (catchedAnimals == TargetMoveList[GameManager.instance.stageNum - 1])
-        {
-            ResultUI.SetActive(true);
-        }
+       
+        ResultUI.SetActive(true);
+
    
     }
+
+    public void StageFail()
+    {
+        ResultFail.SetActive(true);
+    }
+
     public void RetryStage()
     {
         ResultUI.SetActive(false);
+        ResultFail.SetActive(false);
         ResetMove();
     }
     public void MainStage()
     {
         ResultUI.SetActive(false);
+        ResultFail.SetActive(false);
         GameManager.instance.SceneChange(0);
     }
     public void NextLevel()
@@ -137,11 +164,13 @@ public class StageManager : MonoBehaviour
             nowStage.SetActive(true);
 
             alien = nowStage.transform.GetChild(0).gameObject;
-        
+        smallAnimals.Clear();
+        smallAnimalsPos.Clear();
+
+        CharecterController.instance.smalls.Clear();
 
 
-
-             animal = nowStage.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
+        animal = nowStage.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
 
             MoveNum = 0;
             TargetNum = TargetMoveList[GameManager.instance.stageNum - 1];
@@ -155,8 +184,14 @@ public class StageManager : MonoBehaviour
         //  characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
          animalStartPos = animal.transform.position;
         alienStartPos = alien.transform.position;
-
-            IsTake = false;
+        for (int j = 0; j < TargetMoveList[GameManager.instance.stageNum - 1]; j++)
+        {
+            smallAnimals.Add(nowStage.transform.GetChild(1).gameObject.transform.GetChild(j + 1).gameObject);
+            smallAnimalsPos.Add(smallAnimals[j].transform.position);
+            smallAnimals[j].GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
+            smallAnimals[j].tag = "small";
+        }
+        IsTake = false;
             alien.GetComponent<AlienMoveReNew>().taking = false;
         // animal.GetComponent<AnimalMoveReNew>().IsSliding = false;
         CharecterController.instance.newlogics = 0;
