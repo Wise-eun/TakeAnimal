@@ -16,15 +16,14 @@ public class CharecterController : MonoBehaviour
     public List<SmallAnimalMove> smalls = new List<SmallAnimalMove>();
     public List<Vector3> smallsPos = new List<Vector3>();
     public List<float> smallsRotation = new List<float>();
-    int Posnum = 3;
+    int Posnum = 5;
 
     public bool newLogic = false;
     public int newlogics = 0;
     public List<AnimalMoveReNew> animals = new List<AnimalMoveReNew>();
 
-    [SerializeField]
-    AudioSource moveSound;
-
+    
+    public List<AudioSource> SoundList = new List<AudioSource>();
     void Awake()
     {
         if (instance == null)
@@ -78,6 +77,13 @@ public class CharecterController : MonoBehaviour
     {
         //if (Posnum > 2)
         //Posnum = 0;
+        smallsPos[4] = smallsPos[3];
+        smallsRotation[4] = smallsRotation[3];
+
+
+        smallsPos[3] = smallsPos[2];
+        smallsRotation[3] = smallsRotation[2];
+
 
         smallsPos[2] = smallsPos[1];
         smallsRotation[2] = smallsRotation[1];
@@ -90,7 +96,7 @@ public class CharecterController : MonoBehaviour
     }
     public void MoveUp()
     {
-        moveSound.Play();
+        SoundList[0].Play();
         if (!StageManager.instance.IsTake)
         {
             if(newLogic)
@@ -114,7 +120,7 @@ public class CharecterController : MonoBehaviour
     }
     public void MoveDown()
     {
-        moveSound.Play();
+        SoundList[0].Play();
         if (!StageManager.instance.IsTake)
         {
             if (newLogic)
@@ -136,7 +142,7 @@ public class CharecterController : MonoBehaviour
     }
     public void MoveRight()
     {
-        moveSound.Play();
+        SoundList[0].Play();
         if (!StageManager.instance.IsTake)
         {
             if (newLogic)
@@ -158,7 +164,7 @@ public class CharecterController : MonoBehaviour
     }
     public void MoveLeft()
     {
-        moveSound.Play();
+        SoundList[0].Play();
         if (!StageManager.instance.IsTake)
         {
             if (newLogic)

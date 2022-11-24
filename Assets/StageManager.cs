@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using DG.Tweening;
 public class StageManager : MonoBehaviour
 {
     public static StageManager instance = null;
@@ -31,6 +31,9 @@ public class StageManager : MonoBehaviour
     GameObject ResultUI;
     [SerializeField]
     GameObject ResultFail;
+
+    public int catchedSmallNum = 0;
+    public int targetSmallNum = 0;
     void Awake()
     {
         if (instance == null)
@@ -48,6 +51,7 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
+        catchedSmallNum = 0;
         for (int i = 0; i < StageListNum; i++)
         {
             if (GameManager.instance.stageNum == i + 1)
@@ -61,7 +65,7 @@ public class StageManager : MonoBehaviour
                 Debug.Log(alien.name + "¼±ÅÃ!");
                 level.text = "Stage " + (i + 1).ToString();
                 target.text = "Target <b>" + TargetMoveList[i].ToString() + "</b>";
-
+                TargetNum = TargetMoveList[i];
                 for (int j = 0; j < TargetMoveList[i]; j++)
                 {
                     smallAnimals.Add(nowStage.transform.GetChild(1).gameObject.transform.GetChild(j + 1).gameObject);
@@ -100,18 +104,23 @@ public class StageManager : MonoBehaviour
 
     public void ResetMove()
     {
+        catchedSmallNum = 0;
         catchedAnimals = 0;
         MoveNum = 0;
         move.text = "Move <b>" + MoveNum.ToString() + "</b>";
         animal.transform.position = animalStartPos;
         alien.transform.position = alienStartPos;
+
         animal.transform.localScale = new Vector3(1, 1, 1);
+
         animal.SetActive(true);
         IsTake = false;
         alien.GetComponent<AlienMoveReNew>().taking = false;
         for (int i = 0; i < smallAnimals.Count; i++)
         {
             smallAnimals[i].transform.position = smallAnimalsPos[i];
+            smallAnimals[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            smallAnimals[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
             smallAnimals[i].SetActive(true);
             smallAnimals[i].tag = "small";
             smallAnimals[i].GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
@@ -127,8 +136,8 @@ public class StageManager : MonoBehaviour
 
     public void StageFinish()
     {
-        catchedAnimals++;
-       
+        //catchedAnimals++;
+       if(!IsTake)
         ResultUI.SetActive(true);
 
    
@@ -153,9 +162,9 @@ public class StageManager : MonoBehaviour
     }
     public void NextLevel()
     {
-       
 
-            catchedAnimals = 0;
+        catchedSmallNum = 0;
+        catchedAnimals = 0;
             nowStage = transform.GetChild(GameManager.instance.stageNum - 1).gameObject;
             ResultUI.SetActive(false);
             nowStage.SetActive(false);
@@ -175,7 +184,7 @@ public class StageManager : MonoBehaviour
             MoveNum = 0;
             TargetNum = TargetMoveList[GameManager.instance.stageNum - 1];
 
-            level.text = "Stage " + GameManager.instance.stageNum.ToString();
+        level.text = "Stage " + GameManager.instance.stageNum.ToString();
             target.text = "Target <b>" + TargetMoveList[GameManager.instance.stageNum - 1].ToString() + "</b>";
             move.text = "Move <b>" + MoveNum.ToString() + "</b>";
 

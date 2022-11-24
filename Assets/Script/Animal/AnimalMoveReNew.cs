@@ -20,6 +20,8 @@ public class AnimalMoveReNew : MonoBehaviour
     [SerializeField]
     bool IsChapter4 = false;
     public bool IsSliding = false; //현재 미끄러져서 이동하는중인지 확인
+    [SerializeField]
+    ParticleSystem prisionBroken;
     public enum dir
     {
         left,
@@ -372,6 +374,14 @@ public class AnimalMoveReNew : MonoBehaviour
                 CharecterController.instance.smalls.Add(animalHit.collider.gameObject.GetComponent< SmallAnimalMove>());
                 animalHit.collider.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.44f, 0.58f, 0.31f);
                 animalHit.collider.gameObject.tag = "Mysmall";
+                animalHit.collider.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+
+               StageManager.instance.catchedSmallNum++;
+                
+                prisionBroken.gameObject.transform.position = new Vector3(smallAnimalCheck.position.x, 1.5f, smallAnimalCheck.position.z);
+                prisionBroken.gameObject.SetActive(true);
+                CharecterController.instance.SoundList[1].Play();
+                prisionBroken.Play();
                 //return false;
             }
 
@@ -380,8 +390,8 @@ public class AnimalMoveReNew : MonoBehaviour
         {
             if (hit.collider.CompareTag("targetGround"))
             {
-                StageManager.instance.IsTake = false;
-                StageManager.instance.StageFinish();
+               // StageManager.instance.IsTake = false;
+               // StageManager.instance.StageFinish();
                 return true;
             }
             if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("lightGround") )
@@ -422,10 +432,17 @@ public class AnimalMoveReNew : MonoBehaviour
     {
         if(other.CompareTag("targetGround"))
         {
-            StageManager.instance.IsTake = false;
+            // StageManager.instance.IsTake = false;
             StageManager.instance.StageFinish();
+            //  StartCoroutine(WaitAndFinish());
         }
 
+    }
+
+    IEnumerator WaitAndFinish()
+    {
+        yield return new WaitForSeconds(0.3f);
+       // StageManager.instance.StageFinish();
     }
 
 }
