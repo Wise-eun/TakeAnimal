@@ -392,6 +392,13 @@ public class AnimalMoveReNew : MonoBehaviour
             {
                // StageManager.instance.IsTake = false;
                // StageManager.instance.StageFinish();
+               if(StageManager.instance.IsButtonStage)
+                {
+                    if (StageManager.instance.IsPushed)
+                        return true;
+                    else
+                        return false;
+                }
                 return true;
             }
             if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("lightGround") )
@@ -401,7 +408,13 @@ public class AnimalMoveReNew : MonoBehaviour
                 //InWater = false;
                 return true;
             }
-
+            if(hit.collider.CompareTag("buttonGround"))
+            {
+                if (StageManager.instance.IsPushed)
+                    return true;
+                else
+                    return false;
+            }
        
             if (hit.collider.CompareTag("waterGround") )
             {

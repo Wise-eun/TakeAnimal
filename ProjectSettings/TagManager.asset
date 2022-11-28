@@ -17,6 +17,7 @@ TagManager:
   - targetGround
   - small
   - Mysmall
+  - buttonGround
   layers:
   - Default
   - TransparentFX

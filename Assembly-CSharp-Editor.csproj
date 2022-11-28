@@ -58,11 +58,14 @@
   <ItemGroup>
     <Compile Include="Assets\VolumetricLights\Editor\VolumetricLightsRenderFeatureEditor.cs" />
     <Compile Include="Assets\VolumetricLights\Editor\VolumetricLightEditor.cs" />
+    <Compile Include="Assets\HologramShader\HologramShader-master\Hologram\Editor\Foldout.cs" />
     <Compile Include="Assets\VolumetricLights\Editor\VolumetricLightProfileEditor.cs" />
+    <Compile Include="Assets\HologramShader\HologramShader-master\Hologram\Editor\HologramShaderGUI.cs" />
     <Compile Include="Assets\DynamicStarrySky\Editor\EditorCoroutine.cs" />
     <Compile Include="Assets\DynamicStarrySky\Editor\StarrySkyShaderEditor.cs" />
     <Compile Include="Assets\VolumetricLights\Editor\MenuIntegration.cs" />
     <Compile Include="Assets\LowPolyWater_Pack\Scripts\Editor\GeneratePlane.cs" />
+    <Compile Include="Assets\HologramShader\HologramShader-master\Hologram\Editor\Layout.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

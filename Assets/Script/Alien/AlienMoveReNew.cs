@@ -178,7 +178,10 @@ public class AlienMoveReNew : MonoBehaviour
         {
             StageManager.instance.StageFail();
         }
-
+        else
+        {
+            StageManager.instance.DecreaseCatchedAnimals();
+        }
         StageManager.instance.IsTake = false;
     }
 
@@ -197,29 +200,7 @@ public class AlienMoveReNew : MonoBehaviour
     RaycastHit hit;
     RaycastHit animalHit;
     public bool GroundCheck()
-    {   
-        if(CharecterController.instance.newLogic)
-        {
-            if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
-            {
-
-
-
-                if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("highGround") || hit.collider.CompareTag("waterGround") || hit.collider.CompareTag("slideGround"))
-                {
-                    light = true;
-                    return true;
-                }
-                if (hit.collider.CompareTag("lightGround"))
-                {
-
-                    light = false;
-                    return true;
-                }
-
-            }
-            return false;
-        }
+    {    
         Debug.DrawRay(animalCheck.position, animalCheck.transform.up, Color.red, 1f);
         if (Physics.Raycast(animalCheck.position, animalCheck.transform.up, out animalHit))
         {
@@ -238,10 +219,8 @@ public class AlienMoveReNew : MonoBehaviour
         }
         if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
         {
-     
-          
-            
-            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("highGround") || hit.collider.CompareTag("waterGround") || hit.collider.CompareTag("targetGround") )
+
+            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("highGround") || hit.collider.CompareTag("waterGround") || hit.collider.CompareTag("targetGround") || hit.collider.CompareTag("buttonGround"))
             {
                 light = true;
                 return true;
