@@ -110,13 +110,34 @@ public class CharecterController : MonoBehaviour
            // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
 
-            alien.UpMove();     
-             animal.DownMove();
+            StartCoroutine(AlienUpMove());
+            animal.DownMove();
             for (int i = 0; i < smalls.Count; i++)
-                smalls[i].Move(smallsPos[i], smallsRotation[i]);
+                StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i + 3))));
+            // smalls[i].Move(smallsPos[i], smallsRotation[i]);
         }
       
 
+    }
+    IEnumerator AlienUpMove()
+    {
+        yield return new WaitForSeconds(0.1f);
+        alien.UpMove();
+    }
+    IEnumerator AlienDownMove()
+    {
+        yield return new WaitForSeconds(0.1f);
+        alien.DownMove();
+    }
+    IEnumerator AlienRightMove()
+    {
+        yield return new WaitForSeconds(0.1f);
+        alien.RightMove();
+    }
+    IEnumerator AlienLeftMove()
+    {
+        yield return new WaitForSeconds(0.1f);
+        alien.LeftMove();
     }
     public void MoveDown()
     {
@@ -133,10 +154,12 @@ public class CharecterController : MonoBehaviour
             StageManager.instance.IncreaseMove();
            // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
-            alien.DownMove();
+            // alien.DownMove();
+            StartCoroutine(AlienDownMove());
             animal.UpMove();
             for (int i = 0; i < smalls.Count; i++)
-                smalls[i].Move(smallsPos[i], smallsRotation[i]);
+                StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i + 3))));
+            //smalls[i].Move(smallsPos[i], smallsRotation[i]);
 
         }
     }
@@ -155,10 +178,12 @@ public class CharecterController : MonoBehaviour
             StageManager.instance.IncreaseMove();
            // AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
-            alien.RightMove();
+            //alien.RightMove();
+            StartCoroutine(AlienRightMove());
              animal.LeftMove();
             for (int i = 0; i < smalls.Count; i++)
-                smalls[i].Move(smallsPos[i], smallsRotation[i]);
+                StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i + 3))));
+            //smalls[i].Move(smallsPos[i], smallsRotation[i]);
 
         }
     }
@@ -177,10 +202,12 @@ public class CharecterController : MonoBehaviour
             StageManager.instance.IncreaseMove();
           //  AnimalMoveOrder.Push(animal.gameObject.transform.position);
             AlienMoveOrder.Push(alien.gameObject.transform.position);
-            alien.LeftMove();
+            // alien.LeftMove();
+            StartCoroutine(AlienLeftMove());
              animal.RightMove();
             for (int i = 0; i < smalls.Count; i++)
-                smalls[i].Move(smallsPos[i], smallsRotation[i]);
+                StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i+3))));
+               // smalls[i].Move(smallsPos[i], smallsRotation[i]);
         }
 
     }

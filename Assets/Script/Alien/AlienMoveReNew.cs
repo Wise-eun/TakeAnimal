@@ -209,7 +209,7 @@ public class AlienMoveReNew : MonoBehaviour
             if (animalHit.collider.CompareTag("Animal"))
             {
                 Debug.Log("동물이 바로앞에 있어요!");
-                return false;
+                return true;
             }
             if(animalHit.collider.CompareTag("Mysmall"))
             {

@@ -18,6 +18,8 @@ public class AnimalMoveReNew : MonoBehaviour
     [SerializeField]
     Transform smallAnimalCheck;
     [SerializeField]
+    Transform barricadeCheck;
+    [SerializeField]
     bool IsChapter4 = false;
     public bool IsSliding = false; //현재 미끄러져서 이동하는중인지 확인
     [SerializeField]
@@ -35,32 +37,11 @@ public class AnimalMoveReNew : MonoBehaviour
     {
         if (!(StageManager.instance.IsTake))
         {
-            if(IsChapter4)
-            {
-                if(!IsSliding)
-                {
-                   // groundCheck.transform.position = new Vector3(transform.position.x + 1.1f, groundCheck.position.y, transform.position.z);
-                   // GroundCheck();
-
-                    StartCoroutine(Sliding(dir.right));
-                }
-
-
-                return;
-            }
-            if (InWater)
-            {
-                groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
-               
-                GroundCheck();
-                if (IsWater) //다음 지역도 물이라면
-                    transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
             
-                return;
-            }
             groundCheck.transform.position = new Vector3(transform.position.x + 1.1f, groundCheck.position.y, transform.position.z);
             smallAnimalCheck.position = new Vector3(transform.position.x + 1.1f, smallAnimalCheck.position.y, transform.position.z );
-            
+            if (StageManager.instance.IsButtonStage)
+                barricadeCheck.position = new Vector3(transform.position.x + 0.5f, barricadeCheck.position.y, transform.position.z);
             StartCoroutine(MoveToPosition(dir.right));
         }          
     }
@@ -68,29 +49,11 @@ public class AnimalMoveReNew : MonoBehaviour
     {
         if (!(StageManager.instance.IsTake))
         {
-            if (IsChapter4)
-            {
-                if (!IsSliding)
-                {
-                    //groundCheck.transform.position = new Vector3(transform.position.x - 1.1f, groundCheck.position.y, transform.position.z);
-                    //GroundCheck();
-                    StartCoroutine(Sliding(dir.left));
-                }
-
-                return;    
-            }
-            if (InWater)
-            {
-                groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
-                smallAnimalCheck.position = new Vector3(transform.position.x, smallAnimalCheck.position.y, transform.position.z + 1.1f);
-                GroundCheck();
-                if (IsWater) //다음 지역도 물이라면
-                    transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
- 
-                return;
-            }
+           
             groundCheck.transform.position = new Vector3(transform.position.x - 1.1f, groundCheck.position.y, transform.position.z);
             smallAnimalCheck.position = new Vector3(transform.position.x - 1.1f, smallAnimalCheck.position.y, transform.position.z);
+            if(StageManager.instance.IsButtonStage)
+                barricadeCheck.position = new Vector3(transform.position.x - 0.5f, barricadeCheck.position.y, transform.position.z);
             StartCoroutine(MoveToPosition(dir.left));
         }
     }
@@ -184,26 +147,11 @@ public class AnimalMoveReNew : MonoBehaviour
        
         if (!(StageManager.instance.IsTake))
         {
-            if (IsChapter4)
-            {
-               // groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
-                //GroundCheck();
-
-                StartCoroutine(Sliding(dir.forward));
-                return;
-            }
-            if (InWater)
-            {
-                groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
-                smallAnimalCheck.position = new Vector3(transform.position.x, smallAnimalCheck.position.y, transform.position.z + 1.1f);
-                GroundCheck();
-                if (IsWater) //다음 지역도 물이라면
-                    transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
-
-                return;
-            }
+           
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
             smallAnimalCheck.position = new Vector3(transform.position.x, smallAnimalCheck.position.y, transform.position.z + 1.1f);
+            if (StageManager.instance.IsButtonStage)
+                barricadeCheck.position = new Vector3(transform.position.x , barricadeCheck.position.y, transform.position.z + 0.5f);
             StartCoroutine(MoveToPosition(dir.forward));
         }
     }
@@ -212,25 +160,11 @@ public class AnimalMoveReNew : MonoBehaviour
     {
         if (!(StageManager.instance.IsTake))
         {
-            if (IsChapter4)
-            {
-                //groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.1f);
-                //GroundCheck();
-
-                StartCoroutine(Sliding(dir.back));
-                return;
-            }
-            if (InWater)
-            {
-                groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
-                GroundCheck();
-                if (IsWater) //다음 지역도 물이라면
-                    transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
-
-                return;
-            }
+            
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.1f);
             smallAnimalCheck.position = new Vector3(transform.position.x, smallAnimalCheck.position.y, transform.position.z - 1.1f);
+            if (StageManager.instance.IsButtonStage)
+                barricadeCheck.position = new Vector3(transform.position.x, barricadeCheck.position.y, transform.position.z - 0.5f);
             StartCoroutine(MoveToPosition(dir.back));
         }
     }
@@ -361,12 +295,38 @@ public class AnimalMoveReNew : MonoBehaviour
 
     RaycastHit hit;
     RaycastHit animalHit;
+    RaycastHit barricadehit;
     public bool GroundCheck()
     {
-        Debug.DrawRay(smallAnimalCheck.position, smallAnimalCheck.transform.up, Color.red, 1f);
+        if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
+        {
+            if (hit.collider.CompareTag("buttonGround"))
+            {
+                if (StageManager.instance.IsPushed) ;
+                else
+                    return false;
+            }
+
+        }
+        if (StageManager.instance.IsButtonStage) { 
+            Debug.DrawRay(barricadeCheck.position, barricadeCheck.transform.up, Color.red, 1f);
+        if (Physics.Raycast(barricadeCheck.position, barricadeCheck.transform.up, out barricadehit))
+        {
+            if (barricadehit.collider.CompareTag("Barricade"))
+            {
+                Debug.Log("바리게이트당!");
+                if (StageManager.instance.IsPushed);
+                else
+                    return false;
+            }
+
+        }
+        }
+
+
         if (Physics.Raycast(smallAnimalCheck.position, smallAnimalCheck.transform.up, out animalHit))
         {
-
+           
             //Debug.Log(animalHit.collider.name);
             if (animalHit.collider.CompareTag("small"))
             {

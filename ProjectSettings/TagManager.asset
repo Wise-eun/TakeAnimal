@@ -18,6 +18,7 @@ TagManager:
   - small
   - Mysmall
   - buttonGround
+  - Barricade
   layers:
   - Default
   - TransparentFX
