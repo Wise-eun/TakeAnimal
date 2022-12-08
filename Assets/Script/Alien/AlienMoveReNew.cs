@@ -33,6 +33,12 @@ public class AlienMoveReNew : MonoBehaviour
         GroundCheck();
 
     }
+    IEnumerator Dungsil()
+    {
+        transform.DOMoveY(transform.position.y - 0.2f, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        transform.DOMoveY(transform.position.y +0.2f, 0.2f);
+    }
 
     public void LeftMove()
     {
@@ -42,10 +48,11 @@ public class AlienMoveReNew : MonoBehaviour
         {
             groundCheck.transform.position = new Vector3(transform.position.x - 1.1f, groundCheck.position.y, transform.position.z);
             animalCheck.transform.position = new Vector3(transform.position.x - 1.1f, animalCheck.position.y, transform.position.z);
-    
-                if (GroundCheck())
-                {
-                    transform.DOMoveX(transform.position.x - 1.1f, 0.1f);
+            StartCoroutine(Dungsil());
+            if (GroundCheck())
+            {
+               
+                transform.DOMoveX(transform.position.x - 1.1f, 0.1f);
                 }
     
  
@@ -59,8 +66,8 @@ public class AlienMoveReNew : MonoBehaviour
         {
             groundCheck.transform.position = new Vector3(transform.position.x + 1.1f, groundCheck.position.y, transform.position.z);
             animalCheck.transform.position = new Vector3(transform.position.x + 1.1f, animalCheck.position.y, transform.position.z);
-
-                if (GroundCheck())
+            StartCoroutine(Dungsil());
+            if (GroundCheck())
                 {
                     transform.DOMoveX(transform.position.x + 1.1f, 0.1f);
                 }
@@ -76,8 +83,8 @@ public class AlienMoveReNew : MonoBehaviour
         {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
             animalCheck.transform.position = new Vector3(transform.position.x, animalCheck.position.y, transform.position.z + 1.1f);
-   
-                if (GroundCheck())
+            StartCoroutine(Dungsil());
+            if (GroundCheck())
             { 
                     transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
   
@@ -94,8 +101,8 @@ public class AlienMoveReNew : MonoBehaviour
         {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.1f);
             animalCheck.transform.position = new Vector3(transform.position.x, animalCheck.position.y, transform.position.z - 1.1f);
-
-                if (GroundCheck())
+            StartCoroutine(Dungsil());
+            if (GroundCheck())
                 {
                     transform.DOMoveZ(transform.position.z - 1.1f, 0.1f);
                 }        
