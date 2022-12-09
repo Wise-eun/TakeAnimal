@@ -326,25 +326,29 @@ public class AnimalMoveReNew : MonoBehaviour
 
         if (Physics.Raycast(smallAnimalCheck.position, smallAnimalCheck.transform.up, out animalHit))
         {
-           
+
             //Debug.Log(animalHit.collider.name);
-            if (animalHit.collider.CompareTag("small"))
+            if (transform.CompareTag("Animal"))
             {
-               // Debug.Log("동물이 바로앞에 있어요!");
-                CharecterController.instance.smalls.Add(animalHit.collider.gameObject.GetComponent< SmallAnimalMove>());
-                animalHit.collider.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.44f, 0.58f, 0.31f);
-                animalHit.collider.gameObject.tag = "Mysmall";
-                animalHit.collider.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                if (animalHit.collider.CompareTag("small"))
+                {
+                    // Debug.Log("동물이 바로앞에 있어요!");
+                    CharecterController.instance.smalls.Add(animalHit.collider.gameObject.GetComponent<SmallAnimalMove>());
+                    animalHit.collider.gameObject.GetComponent<BoxCollider>().size = new Vector3(0.44f, 0.58f, 0.31f);
+                    animalHit.collider.gameObject.tag = "Mysmall";
+                    animalHit.collider.gameObject.transform.GetChild(1).gameObject.SetActive(false);
 
-               StageManager.instance.catchedSmallNum++;
-                
-                prisionBroken.gameObject.transform.position = new Vector3(smallAnimalCheck.position.x, 1.5f, smallAnimalCheck.position.z);
-                prisionBroken.gameObject.SetActive(true);
-                CharecterController.instance.SoundList[1].Play();
-                prisionBroken.Play();
-                //return false;
+                    StageManager.instance.catchedSmallNum++;
+
+                    prisionBroken.gameObject.transform.position = new Vector3(smallAnimalCheck.position.x, 1.5f, smallAnimalCheck.position.z);
+                    prisionBroken.gameObject.SetActive(true);
+                    CharecterController.instance.SoundList[1].Play();
+                    prisionBroken.Play();
+                    //return false;
+                }
+
+
             }
-
         }
         if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
         {
@@ -403,12 +407,16 @@ public class AnimalMoveReNew : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("targetGround"))
-        {
-            // StageManager.instance.IsTake = false;
-            StageManager.instance.StageFinish();
-            //  StartCoroutine(WaitAndFinish());
+        if(transform.CompareTag("Animal"))
+            {
+            if (other.CompareTag("targetGround"))
+            {
+                // StageManager.instance.IsTake = false;
+                StageManager.instance.StageFinish();
+                //  StartCoroutine(WaitAndFinish());
+            }
         }
+       
 
     }
 

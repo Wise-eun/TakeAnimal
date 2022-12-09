@@ -42,7 +42,7 @@ public class AlienMoveReNew : MonoBehaviour
 
     public void LeftMove()
     {
-        StartCoroutine(ColliderHideAndShow());
+        // StartCoroutine(ColliderHideAndShow());
 
         if (!taking) 
         {
@@ -60,8 +60,8 @@ public class AlienMoveReNew : MonoBehaviour
     }
     public void RightMove()
     {
-        StartCoroutine(ColliderHideAndShow());
-        
+        // StartCoroutine(ColliderHideAndShow());
+
         if (!taking)
         {
             groundCheck.transform.position = new Vector3(transform.position.x + 1.1f, groundCheck.position.y, transform.position.z);
@@ -77,8 +77,8 @@ public class AlienMoveReNew : MonoBehaviour
     }
     public void UpMove()
     {
-        StartCoroutine(ColliderHideAndShow());
-        
+        // StartCoroutine(ColliderHideAndShow());
+
         if (!taking)
         {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
@@ -95,7 +95,7 @@ public class AlienMoveReNew : MonoBehaviour
     }
     public void DownMove()
     {
-        StartCoroutine(ColliderHideAndShow());
+       // StartCoroutine(ColliderHideAndShow());
        
         if (!taking)
         {
@@ -113,7 +113,7 @@ public class AlienMoveReNew : MonoBehaviour
     IEnumerator ColliderHideAndShow()
     {
         transform.GetComponent<BoxCollider>().center = new Vector3(-0.2f, 6f, -0.15f);
-        yield  return new WaitForSeconds(0.1f);
+        yield  return new WaitForSeconds(0.2f);
         transform.GetComponent<BoxCollider>().center = new Vector3(-0.2f, 1.1f, -0.15f);
     }
     /*
@@ -143,6 +143,12 @@ public class AlienMoveReNew : MonoBehaviour
             taking = true;
            // other.GetComponent<AnimalMoveReNew>().StopAllCoroutines();
             StartCoroutine(Take(other.transform, true));
+        }
+        else if(other.CompareTag("AlienCh"))
+        {
+            taking = true;
+            StageManager.instance.IsTake = true;
+            StartCoroutine(Take(other.transform, false));
         }
         else if (other.CompareTag("Mysmall")) //새끼동물이 잡혀간 경우
         {

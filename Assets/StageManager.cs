@@ -12,10 +12,10 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI move, target, level;
 
-    public GameObject animal, alien;
+    public GameObject animal, alien, alienCh;
     public List<GameObject> smallAnimals = new List<GameObject>();
     public List<Vector3> smallAnimalsPos = new List<Vector3>();
-    Vector3 animalStartPos, alienStartPos;
+    Vector3 animalStartPos, alienStartPos, alienchStartPos;
     //List<GameObject> animals = new List<GameObject>();
    // List<Vector3> animalStartPoss= new List<Vector3>();
     private int catchedAnimals = 0;
@@ -41,6 +41,8 @@ public class StageManager : MonoBehaviour
 
     
     public bool IsButtonStage = false;
+    
+    public bool IsChapter3 = false;
     public bool IsPushed = false;
     void Awake()
     {
@@ -71,6 +73,7 @@ public class StageManager : MonoBehaviour
                 Debug.Log(nowStage.name + "활성화됨!");
                 alien = nowStage.transform.GetChild(0).gameObject;
                 animal = nowStage.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
+                alienCh = nowStage.transform.GetChild(2).gameObject.transform.GetChild(0).gameObject;
                 Debug.Log(animal.name + "선택!");
                 Debug.Log(alien.name + "선택!");
                 TargetNum = TargetMoveList[i];
@@ -100,13 +103,14 @@ public class StageManager : MonoBehaviour
 
         }
         characterController.GetComponent<CharecterController>().alien = alien.GetComponent<AlienMoveReNew>();
-
-            characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
+        characterController.GetComponent<CharecterController>().alien_charecter = alienCh.GetComponent<AnimalMoveReNew>();
+        characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
 
 
             // characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
            animalStartPos = animal.transform.position;
             alienStartPos = alien.transform.position;
+        alienchStartPos = alienCh.transform.position;
     }
 
 
@@ -130,6 +134,7 @@ public class StageManager : MonoBehaviour
         move.text = "Move <b>" + MoveNum.ToString() + "</b>";
         animal.transform.position = animalStartPos;
         alien.transform.position = alienStartPos;
+        alienCh.transform.position = alienchStartPos;
         if (IsButtonStage)
         {
             for (int j = 0; j < StagebuttonsNum[GameManager.instance.stageNum - 1]; j++)
@@ -141,7 +146,8 @@ public class StageManager : MonoBehaviour
         }
 
         animal.transform.localScale = new Vector3(1, 1, 1);
-
+        alienCh.transform.localScale = new Vector3(1, 1, 1);
+        alienCh.SetActive(true);
         animal.SetActive(true);
         IsTake = false;
         alien.GetComponent<AlienMoveReNew>().taking = false;
@@ -229,8 +235,8 @@ public class StageManager : MonoBehaviour
 
 
         animal = nowStage.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
-
-            MoveNum = 0;
+        alienCh = nowStage.transform.GetChild(2).gameObject.transform.GetChild(0).gameObject;
+        MoveNum = 0;
             TargetNum = TargetMoveList[GameManager.instance.stageNum - 1];
 
         level.text = "Stage " + GameManager.instance.stageNum.ToString();
@@ -239,8 +245,9 @@ public class StageManager : MonoBehaviour
 
             characterController.GetComponent<CharecterController>().alien = alien.GetComponent<AlienMoveReNew>();
         characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
+        characterController.GetComponent<CharecterController>().alien_charecter = alienCh.GetComponent<AnimalMoveReNew>();
         //  characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
-         animalStartPos = animal.transform.position;
+        animalStartPos = animal.transform.position;
         alienStartPos = alien.transform.position;
         for (int j = 0; j < TargetMoveList[GameManager.instance.stageNum - 1]; j++)
         {

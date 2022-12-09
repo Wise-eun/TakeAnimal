@@ -7,6 +7,7 @@ public class CharecterController : MonoBehaviour
     public static CharecterController instance = null;
     public  AlienMoveReNew alien;  
    public  AnimalMoveReNew animal;
+    public AnimalMoveReNew alien_charecter;
 
     bool Re = false;
     Stack<Vector3> AnimalMoveOrder = new Stack<Vector3>();
@@ -24,6 +25,7 @@ public class CharecterController : MonoBehaviour
 
     
     public List<AudioSource> SoundList = new List<AudioSource>();
+ 
     void Awake()
     {
         if (instance == null)
@@ -112,8 +114,14 @@ public class CharecterController : MonoBehaviour
 
             StartCoroutine(AlienUpMove());
             animal.DownMove();
+            if (StageManager.instance.IsChapter3)
+            {
+                if (alien_charecter.isActiveAndEnabled)
+                    alien_charecter.UpMove();
+            }
             for (int i = 0; i < smalls.Count; i++)
                 StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i + 3))));
+            
             // smalls[i].Move(smallsPos[i], smallsRotation[i]);
         }
       
@@ -157,6 +165,11 @@ public class CharecterController : MonoBehaviour
             // alien.DownMove();
             StartCoroutine(AlienDownMove());
             animal.UpMove();
+            if (StageManager.instance.IsChapter3)
+            {
+                if (alien_charecter.isActiveAndEnabled)
+                    alien_charecter.DownMove();
+            }
             for (int i = 0; i < smalls.Count; i++)
                 StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i + 3))));
             //smalls[i].Move(smallsPos[i], smallsRotation[i]);
@@ -181,6 +194,12 @@ public class CharecterController : MonoBehaviour
             //alien.RightMove();
             StartCoroutine(AlienRightMove());
              animal.LeftMove();
+            if (StageManager.instance.IsChapter3)
+            {
+                if(alien_charecter.isActiveAndEnabled)
+                alien_charecter.RightMove();
+            }
+                
             for (int i = 0; i < smalls.Count; i++)
                 StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i + 3))));
             //smalls[i].Move(smallsPos[i], smallsRotation[i]);
@@ -205,6 +224,11 @@ public class CharecterController : MonoBehaviour
             // alien.LeftMove();
             StartCoroutine(AlienLeftMove());
              animal.RightMove();
+            if (StageManager.instance.IsChapter3)
+            {
+                if (alien_charecter.isActiveAndEnabled)
+                    alien_charecter.LeftMove();
+            }
             for (int i = 0; i < smalls.Count; i++)
                 StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i+3))));
                // smalls[i].Move(smallsPos[i], smallsRotation[i]);

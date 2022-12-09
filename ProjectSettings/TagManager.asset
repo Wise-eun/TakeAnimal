@@ -6,8 +6,6 @@ TagManager:
   tags:
   - ground
   - Animal
-  - cloud
-  - movingGround
   - highGround
   - lightGround
   - waterGround
@@ -19,6 +17,7 @@ TagManager:
   - Mysmall
   - buttonGround
   - Barricade
+  - AlienCh
   layers:
   - Default
   - TransparentFX
