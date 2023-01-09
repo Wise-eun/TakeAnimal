@@ -60,8 +60,8 @@ public class StageManagerReNew : MonoBehaviour
                 transform.GetChild(i).gameObject.SetActive(false);
 
         }
-        characterController.GetComponent<CharecterController>().alien = alien.GetComponent<AlienMoveReNew>();
-        characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
+        characterController.GetComponent<CharecterController>().alien = alien.GetComponent<UFOMove>();
+        characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMove>();
         animalStartPos = animal.transform.position;
         alienStartPos = alien.transform.position;
     }
@@ -88,10 +88,8 @@ public class StageManagerReNew : MonoBehaviour
         alien.transform.position = alienStartPos;
         animal.SetActive(true);
         IsTake = false;
-        alien.GetComponent<AlienMoveReNew>().taking = false;
-        animal.GetComponent<AnimalMoveReNew>().IsSliding = false;
         CharecterController.instance.newlogics = 0;
-        //   animal.GetComponent<AnimalMoveReNew>().StartCoroutine_Auto;
+        //   animal.GetComponent<AnimalMove>().StartCoroutine_Auto;
     }
 
     public void StageFinish()
@@ -126,14 +124,12 @@ public class StageManagerReNew : MonoBehaviour
         target.text = "Target <b>" + TargetMoveList[GameManager.instance.stageNum - 1].ToString() + "</b>";
         move.text = "Move <b>" + MoveNum.ToString() + "</b>";
 
-        characterController.GetComponent<CharecterController>().alien = alien.GetComponent<AlienMoveReNew>();
-        characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMoveReNew>();
+        characterController.GetComponent<CharecterController>().alien = alien.GetComponent<UFOMove>();
+        characterController.GetComponent<CharecterController>().animal = animal.GetComponent<AnimalMove>();
         animalStartPos = animal.transform.position;
         alienStartPos = alien.transform.position;
 
         IsTake = false;
-        alien.GetComponent<AlienMoveReNew>().taking = false;
-        animal.GetComponent<AnimalMoveReNew>().IsSliding = false;
         CharecterController.instance.newlogics = 0;
     }
 

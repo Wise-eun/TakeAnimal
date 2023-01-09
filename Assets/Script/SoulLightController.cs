@@ -39,7 +39,6 @@ public class SoulLightController : MonoBehaviour
     {
         var t = 0f;
 
-        dog.GetComponent<AnimalMove>().StopAllCoroutines();
 
         while (t < 1)
         {

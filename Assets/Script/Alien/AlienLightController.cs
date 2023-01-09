@@ -17,7 +17,7 @@ public class AlienLightController : MonoBehaviour
     {
         cloud_height = new Vector3(1f, 1f, 0.3f);
         ground_height = new Vector3(1f, 1f, 0.8f);
-    }
+    }  /*
     public void CheckObject()
     {
         if (Physics.Raycast(transform.position, transform.up, out hit))
@@ -51,7 +51,7 @@ public class AlienLightController : MonoBehaviour
     }
 
 
-
+  
     IEnumerator TakeAnimal()
     {
         animal.GetComponentInParent<AnimalMove>().StopAllCoroutines();
@@ -60,6 +60,6 @@ public class AlienLightController : MonoBehaviour
         animal.SetActive(false);
         StageManager.instance.IsTake = false;
     }
-
+*/
 
 }
