@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ButtonController : MonoBehaviour
 {
+    public enum lightColor
+    {
+        red,
+        green
+    }
     [SerializeField]
     Material[] buttonColor = new Material[2]; // 0:red , 1:green 
     [SerializeField]
@@ -11,8 +16,8 @@ public class ButtonController : MonoBehaviour
     [SerializeField]
     List<MeshRenderer> barricade = new List<MeshRenderer>();
 
-
     bool pushed = false;
+  
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,20 +39,14 @@ public class ButtonController : MonoBehaviour
         }
     }
 
-    public void TurnRed()
+    public void TurnLight(lightColor color)
     {
-        for (int i = 0; i < barricade.Count; i++)
-            barricade[i].material = barricadeColor[0];
-
-        GetComponent<MeshRenderer>().material = buttonColor[0];
+        GetComponent<MeshRenderer>().material = buttonColor[(int)color];
         pushed = false;
     }
-    public void TurnGreen()
+    public void TurnBarricade(lightColor color)
     {
         for (int i = 0; i < barricade.Count; i++)
-            barricade[i].material = barricadeColor[1];
-
-        GetComponent<MeshRenderer>().material = buttonColor[1];
-        pushed = false;
+            barricade[i].material = barricadeColor[(int)color];
     }
 }

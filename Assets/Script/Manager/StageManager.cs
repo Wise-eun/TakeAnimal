@@ -45,7 +45,7 @@ public class StageManager : MonoBehaviour
 
     [SerializeField]
     List<int> stageButtonNum = new List<int>();
-
+   
 
     GameObject nowStage;
     int stageNum;
@@ -137,7 +137,7 @@ public class StageManager : MonoBehaviour
         {
             Debug.Log("StagebuttonsNum[i] = " + stageButtonNum[stageNum]);
             stageButtons.Add(nowStage.transform.GetChild(3).transform.GetChild(j).transform.GetChild(1).gameObject.GetComponent<ButtonController>());
-            stageButtons[j].TurnRed();
+            stageButtons[j].TurnLight(ButtonController.lightColor.red);
         }
         isPushed = false;
     }
@@ -173,7 +173,7 @@ public class StageManager : MonoBehaviour
         for (int j = 0; j < stageButtonNum[stageNum]; j++)
         {
             stageButtons[j] = nowStage.transform.GetChild(3).transform.GetChild(j).transform.GetChild(1).gameObject.GetComponent<ButtonController>();
-            stageButtons[j].TurnRed();
+            stageButtons[j].TurnLight(ButtonController.lightColor.red);
         }
         isTake = false;
     }
@@ -239,15 +239,18 @@ public class StageManager : MonoBehaviour
     }
     public void ButtonTurnRed(bool isRed)
     {
-        if (!isRed)
+       
+        if (isRed)
         {
+            stageButtons[0].TurnBarricade(ButtonController.lightColor.red);
             for (int i = 0; i < stageButtons.Count; i++)
-                stageButtons[i].TurnGreen();
+                stageButtons[i].TurnLight(ButtonController.lightColor.red);           
         }
         else
         {
+            stageButtons[0].TurnBarricade(ButtonController.lightColor.green);
             for (int i = 0; i < stageButtons.Count; i++)
-                stageButtons[i].TurnRed();
+                stageButtons[i].TurnLight(ButtonController.lightColor.green);
         }
 
     }
