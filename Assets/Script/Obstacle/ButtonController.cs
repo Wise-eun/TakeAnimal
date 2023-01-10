@@ -5,9 +5,9 @@ using UnityEngine;
 public class ButtonController : MonoBehaviour
 {
     [SerializeField]
-    Material[] Button_color = new Material[2]; // 0:red , 1:green 
+    Material[] buttonColor = new Material[2]; // 0:red , 1:green 
     [SerializeField]
-    Material[] Barricade_color = new Material[2]; // 0:red , 1:green 
+    Material[] barricadeColor = new Material[2]; // 0:red , 1:green 
     [SerializeField]
     List<MeshRenderer> barricade = new List<MeshRenderer>();
 
@@ -37,17 +37,17 @@ public class ButtonController : MonoBehaviour
     public void TurnRed()
     {
         for (int i = 0; i < barricade.Count; i++)
-            barricade[i].material = Barricade_color[0];
+            barricade[i].material = barricadeColor[0];
 
-        GetComponent<MeshRenderer>().material = Button_color[0];
+        GetComponent<MeshRenderer>().material = buttonColor[0];
         pushed = false;
     }
     public void TurnGreen()
     {
         for (int i = 0; i < barricade.Count; i++)
-            barricade[i].material = Barricade_color[1];
+            barricade[i].material = barricadeColor[1];
 
-        GetComponent<MeshRenderer>().material = Button_color[1];
+        GetComponent<MeshRenderer>().material = buttonColor[1];
         pushed = false;
     }
 }

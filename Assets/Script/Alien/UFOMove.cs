@@ -7,18 +7,18 @@ public class UFOMove : MonoBehaviour
 
     [SerializeField]
     Transform groundCheck;
-    public bool taking = false;
     [SerializeField]
     AudioSource takeSound;
 
+    int charecterLayerMask = 1 << (int)StageManager.layer.alien |
+                            1 << (int)StageManager.layer.animal |
+                            1 << (int)StageManager.layer.smallAnimal;
 
     public void ReMove(Vector3 repos)
     {
-        
         transform.DOMove(repos, 0.1f);
         groundCheck.transform.position = new Vector3(repos.x, groundCheck.position.y, repos.z);
         GroundCheck();
-
     }
     IEnumerator Dungsil()
     {
@@ -30,65 +30,51 @@ public class UFOMove : MonoBehaviour
 
     public void LeftMove()
     {
-        if (!taking) 
+        if (!StageManager.instance.IsTake)
         {
             groundCheck.transform.position = new Vector3(transform.position.x - 1.1f, groundCheck.position.y, transform.position.z);
             StartCoroutine(Dungsil());
             if (GroundCheck())
             {
-               
                 transform.DOMoveX(transform.position.x - 1.1f, 0.1f);
-
-                }
-    
- 
+            }
         }
     }
     public void RightMove()
     {
-
-        if (!taking)
+        if (!StageManager.instance.IsTake)
         {
             groundCheck.transform.position = new Vector3(transform.position.x + 1.1f, groundCheck.position.y, transform.position.z);
             StartCoroutine(Dungsil());
             if (GroundCheck())
-                {
-                    transform.DOMoveX(transform.position.x + 1.1f, 0.1f);
-
+            {
+                transform.DOMoveX(transform.position.x + 1.1f, 0.1f);
             }
-
-         
         }
     }
     public void UpMove()
     {
-        // StartCoroutine(ColliderHideAndShow());
-
-        if (!taking)
+        if (!StageManager.instance.IsTake)
         {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
             StartCoroutine(Dungsil());
             if (GroundCheck())
-            { 
-                    transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
-
+            {
+                transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
             }
-        
-  
         }
     }
     public void DownMove()
-    { 
-        if (!taking)
+    {
+        if (!StageManager.instance.IsTake)
         {
-            groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.1f);          
+            groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.1f);
             StartCoroutine(Dungsil());
             if (GroundCheck())
-                {
-                    transform.DOMoveZ(transform.position.z - 1.1f, 0.1f);
-                
-            }        
-        }    
+            {
+                transform.DOMoveZ(transform.position.z - 1.1f, 0.1f);
+            }
+        }
     }
     IEnumerator Take(Transform animal, bool isAnimal)
     {
@@ -101,13 +87,8 @@ public class UFOMove : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         animal.transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 1f);
         yield return new WaitForSeconds(0.8f);
-        
 
         animal.gameObject.SetActive(false);
-
-        taking = false;
-     
-       
 
         if (isAnimal)
         {
@@ -122,7 +103,7 @@ public class UFOMove : MonoBehaviour
 
     IEnumerator Rotate(Transform animal)
     {
-      
+
         for (int i = 0; i < 3; i++)
         {
             animal.transform.DORotate(new Vector3(0, 360, 0), 0.3f, RotateMode.FastBeyond360)
@@ -133,43 +114,40 @@ public class UFOMove : MonoBehaviour
     RaycastHit hit;
     RaycastHit animalHit;
     public bool GroundCheck()
-    {    
+    {
         if (Physics.Raycast(groundCheck.position, groundCheck.transform.up, out hit))
         {
-                if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("highGround")|| hit.collider.CompareTag("targetGround") || hit.collider.CompareTag("buttonGround"))
+            if (hit.collider.CompareTag("ground") || hit.collider.CompareTag("highGround")
+                || hit.collider.CompareTag("targetGround") || hit.collider.CompareTag("buttonGround"))
             {
                 return true;
             }
         }
-       return false;
+        return false;
     }
 
     private void AnimalCheck()
     {
-        //Debug.DrawRay(transform.position, transform.transform.up, Color.black, 1f);
-        if (Physics.Raycast(transform.position, transform.up, out animalHit,10f))
+        if (Physics.Raycast(transform.position, transform.up, out animalHit, 10f, charecterLayerMask))
         {
 
             Debug.Log(animalHit.collider.name);
-            if(animalHit.collider.CompareTag("Animal") || animalHit.collider.CompareTag("Mysmall") || animalHit.collider.CompareTag("AlienCh"))
-            {
-                taking = true;
+
                 StageManager.instance.IsTake = true;
-                if (animalHit.collider.CompareTag("Animal"))
-                {
+
+            switch(animalHit.transform.gameObject.layer)
+            {
+                case (int)StageManager.layer.animal:
                     StartCoroutine(Take(animalHit.transform, true));
-                }
-                else if (animalHit.collider.CompareTag("Mysmall"))
-                {
+                    break;
+                case (int)StageManager.layer.smallAnimal:
+                    CharecterController.instance.RemoveSmallAnimal(animalHit.transform.GetComponent<SmallAnimalMove>());
                     StartCoroutine(Take(animalHit.transform, false));
-                    CharecterController.instance.smalls.Remove(animalHit.transform.GetComponent<SmallAnimalMove>());
-                }
-                else if (animalHit.collider.CompareTag("AlienCh"))
-                {
+                    break;
+                case (int)StageManager.layer.alien:
                     StartCoroutine(Take(animalHit.transform, false));
-                }
-            }
-            
+                    break;
+            }         
         }
     }
 

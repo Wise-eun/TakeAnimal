@@ -5,27 +5,50 @@ using UnityEngine;
 public class CharecterController : MonoBehaviour
 {
     public static CharecterController instance = null;
-    public  UFOMove alien;  
-   public  AnimalMove animal;
-    public AnimalMove alien_charecter;
+    [SerializeField]
+    int smallAnimalNum = 5;
+    [SerializeField]
+    List<AudioSource> soundList = new List<AudioSource>();
 
-    Stack<Vector3> AnimalMoveOrder = new Stack<Vector3>();
-    Stack<Vector3> AlienMoveOrder = new Stack<Vector3>();
+    public enum dir
+    {  
+        forward = -90,
+        back = 90,
+        right = 0,
+        left = 180  
+    }
 
 
-    public List<SmallAnimalMove> smalls = new List<SmallAnimalMove>();
-    public List<Vector3> smallsPos = new List<Vector3>();
-    public List<float> smallsRotation = new List<float>();
-    int Posnum = 5;
+    List<Vector3> smallsPos = new List<Vector3>();
+    List<float> smallsRotation = new List<float>();
+    List<SmallAnimalMove> smalls = new List<SmallAnimalMove>();
+    private UFOMove ufo;
+    private AnimalMove animal;
+    private AlienMove alien;
 
-    public bool newLogic = false;
-    public int newlogics = 0;
-    public List<AnimalMove> animals = new List<AnimalMove>();
 
-    
-    public List<AudioSource> SoundList = new List<AudioSource>();
- 
+    public UFOMove UFO { set => ufo = value; }
+    public AnimalMove Animal { set => animal = value; }
+    public AlienMove Alien { set => alien = value; }
+    public void ClearSmallAnimals()
+    {
+        smalls.Clear();
+    }
+    public void RemoveSmallAnimal(SmallAnimalMove smallAnimal)
+    {
+        smalls.Remove(smallAnimal);
+    }
+    public void AddSmallAnimal(SmallAnimalMove smallAnimal)
+    {
+        smalls.Add(smallAnimal);
+    }
+
     void Awake()
+    {
+        Init();
+        SettingSmallAnimal();
+    }
+    private void Init()
     {
         if (instance == null)
         {
@@ -33,58 +56,24 @@ public class CharecterController : MonoBehaviour
         }
         else if (instance != this)
             Destroy(gameObject);
+    }
 
-        // DontDestroyOnLoad(gameObject);
-
-        for (int i = 0; i < Posnum; i++)
+    private void SettingSmallAnimal()
+    {
+        for (int i = 0; i < smallAnimalNum; i++)
         {
             smallsPos.Add(new Vector3(0, 0, 0));
             smallsRotation.Add(0);
         }
-            
-        Posnum = 0;
-    }
-
-    public void NewLogicMove() //남남동북
-    {
-        if(newlogics ==0)
-        {
-            for (int i = 0; i < animals.Count; i++)
-                animals[i].DownMove();
-            newlogics++;
-        }
-       else if (newlogics == 1)
-        {
-            for (int i = 0; i < animals.Count; i++)
-                animals[i].DownMove();
-            newlogics++;
-        }
-        else if (newlogics == 2)
-        {
-            for (int i = 0; i < animals.Count; i++)
-                animals[i].RightMove();
-            newlogics++;
-        }
-        else if (newlogics == 3)
-        {
-            for (int i = 0; i < animals.Count; i++)
-                animals[i].UpMove();
-            newlogics= 0;
-        }
-
     }
 
     public void SaveAnimalPos(float rotation)
     {
-        //if (Posnum > 2)
-        //Posnum = 0;
         smallsPos[4] = smallsPos[3];
         smallsRotation[4] = smallsRotation[3];
 
-
         smallsPos[3] = smallsPos[2];
         smallsRotation[3] = smallsRotation[2];
-
 
         smallsPos[2] = smallsPos[1];
         smallsRotation[2] = smallsRotation[1];
@@ -95,129 +84,71 @@ public class CharecterController : MonoBehaviour
         smallsPos[0] = new Vector3(animal.transform.position.x, animal.transform.position.y+0.4f, animal.transform.position.z);
         smallsRotation[0] = rotation;
     }
+    // Alien 움직이는데 0.5초
+    // Animal 움직이는데 0.3초
+
+    public void Move(dir direct)
+    {
+        SoundManager.instance.PlayCharecterSound(SoundManager.charecterSound.move);
+        switch (direct)
+        {
+            case dir.forward:
+                ufo.DownMove();
+                animal.UpMove();
+                if (StageManager.instance.IsChapter3)
+                {
+                    if (alien.isActiveAndEnabled)
+                        alien.DownMove();
+                }
+                break;
+            case dir.back:
+                ufo.UpMove();
+                animal.DownMove();
+                if (StageManager.instance.IsChapter3)
+                {
+                    if (alien.isActiveAndEnabled)
+                        alien.UpMove();
+                }
+                break;
+            case dir.right:
+                ufo.LeftMove();
+                animal.RightMove();
+                if (StageManager.instance.IsChapter3)
+                {
+                    if (alien.isActiveAndEnabled)
+                        alien.LeftMove();
+                }
+                break;
+            case dir.left:
+                ufo.RightMove();
+                animal.LeftMove();
+                if (StageManager.instance.IsChapter3)
+                {
+                    if (alien.isActiveAndEnabled)
+                        alien.RightMove();
+                }
+                break;
+        }
+        for (int i = 0; i < smalls.Count; i++)
+            smalls[i].Move(smallsPos[i], smallsRotation[i]);
+    }
+
     public void MoveUp()
     {
-        SoundList[0].Play();
-        if (!StageManager.instance.IsTake)
-        {
-            if(newLogic)
-            {
-                alien.UpMove();
-                NewLogicMove();
-                return;
-            }
-
-
-            StartCoroutine(AlienUpMove());
-            animal.DownMove();
-            if (StageManager.instance.IsChapter3)
-            {
-                if (alien_charecter.isActiveAndEnabled)
-                    alien_charecter.UpMove();
-            }
-            for (int i = 0; i < smalls.Count; i++)
-                StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i + 3))));
-
-        }
-      
-
-    }
-    IEnumerator AlienUpMove()
-    {
-        yield return new WaitForSeconds(0.1f);
-        alien.UpMove();
-    }
-    IEnumerator AlienDownMove()
-    {
-        yield return new WaitForSeconds(0.1f);
-        alien.DownMove();
-    }
-    IEnumerator AlienRightMove()
-    {
-        yield return new WaitForSeconds(0.1f);
-        alien.RightMove();
-    }
-    IEnumerator AlienLeftMove()
-    {
-        yield return new WaitForSeconds(0.1f);
-        alien.LeftMove();
+        Move(dir.forward);
     }
     public void MoveDown()
     {
-        SoundList[0].Play();
-        if (!StageManager.instance.IsTake)
-        {
-            if (newLogic)
-            {
-                alien.DownMove();
-                NewLogicMove();
-                return;
-            }
-
-            StartCoroutine(AlienDownMove());
-            animal.UpMove();
-            if (StageManager.instance.IsChapter3)
-            {
-                if (alien_charecter.isActiveAndEnabled)
-                    alien_charecter.DownMove();
-            }
-            for (int i = 0; i < smalls.Count; i++)
-                StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i + 3))));
-            //smalls[i].Move(smallsPos[i], smallsRotation[i]);
-
-        }
+        Move(dir.back);
     }
     public void MoveRight()
     {
-        SoundList[0].Play();
-        if (!StageManager.instance.IsTake)
-        {
-            if (newLogic)
-            {
-                alien.RightMove();
-                NewLogicMove();
-                return;
-            }
-
-
-            StartCoroutine(AlienRightMove());
-             animal.LeftMove();
-            if (StageManager.instance.IsChapter3)
-            {
-                if(alien_charecter.isActiveAndEnabled)
-                alien_charecter.RightMove();
-            }
-                
-            for (int i = 0; i < smalls.Count; i++)
-                StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i + 3))));
-
-
-        }
+        Move(dir.right);
     }
     public void MoveLeft()
     {
-        SoundList[0].Play();
-        if (!StageManager.instance.IsTake)
-        {
-            if (newLogic)
-            {
-                alien.LeftMove();
-                NewLogicMove();
-                return;
-            }
-
-
-            StartCoroutine(AlienLeftMove());
-             animal.RightMove();
-            if (StageManager.instance.IsChapter3)
-            {
-                if (alien_charecter.isActiveAndEnabled)
-                    alien_charecter.LeftMove();
-            }
-            for (int i = 0; i < smalls.Count; i++)
-                StartCoroutine(smalls[i].Move(smallsPos[i], smallsRotation[i], (0.03f * (i+3))));
-               // smalls[i].Move(smallsPos[i], smallsRotation[i]);
-        }
+        Move(dir.left);
 
     }
+
 }

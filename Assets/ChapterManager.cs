@@ -12,7 +12,7 @@ public class ChapterManager : MonoBehaviour
     }
     public void SetStageNum(int num)
     {
-        GameManager.instance.stageNum = num;
+        GameManager.instance.StageNum = num;
     }
 
     public void SceneChange(int chapter)

@@ -61,14 +61,13 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\VolumetricLights\Demos\Minimal\Scripts\CubeGen.cs" />
-    <Compile Include="Assets\StageManager.cs" />
-    <Compile Include="Assets\Script\GameManager.cs" />
+    <Compile Include="Assets\Script\Manager\StageManager.cs" />
+    <Compile Include="Assets\Script\Manager\GameManager.cs" />
     <Compile Include="Assets\HologramShader\HologramShader-master\Demo\Scripts\AutoRotate.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Script\SoulLightController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Script\Animal\SmallAnimalMove.cs" />
-    <Compile Include="Assets\Script\StageManagerReNew.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Script\UI\UIButtonEvent.cs" />
@@ -114,7 +113,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Script\Alien\AlienMove.cs" />
-    <Compile Include="Assets\Script\Alien\AlienLightController.cs" />
     <Compile Include="Assets\Script\Alien\UFOMove.cs" />
     <Compile Include="Assets\Script\UI\UIAnimation.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
@@ -124,6 +122,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\DynamicStarrySky\Scripts\StarPoint.cs" />
+    <Compile Include="Assets\Script\Manager\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
