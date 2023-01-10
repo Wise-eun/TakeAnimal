@@ -55,7 +55,7 @@ public class StageManager : MonoBehaviour
     List<GameObject> smallAnimals = new List<GameObject>();
     List<Vector3> smallAnimalsPos = new List<Vector3>();
     Vector3 animalStartPos, alienStartPos, alienchStartPos;
-    List<ButtonController> Stagebuttons = new List<ButtonController>();
+    List<ButtonController> stageButtons = new List<ButtonController>();
 
     void Awake()
     {
@@ -132,12 +132,12 @@ public class StageManager : MonoBehaviour
     }
     void SettingChapter2()
     {
-        Stagebuttons.Clear();
+        stageButtons.Clear();
         for (int j = 0; j < stageButtonNum[stageNum]; j++)
         {
             Debug.Log("StagebuttonsNum[i] = " + stageButtonNum[stageNum]);
-            Stagebuttons.Add(nowStage.transform.GetChild(3).transform.GetChild(j).transform.GetChild(1).gameObject.GetComponent<ButtonController>());
-            Stagebuttons[j].TurnRed();
+            stageButtons.Add(nowStage.transform.GetChild(3).transform.GetChild(j).transform.GetChild(1).gameObject.GetComponent<ButtonController>());
+            stageButtons[j].TurnRed();
         }
         isPushed = false;
     }
@@ -165,7 +165,6 @@ public class StageManager : MonoBehaviour
             smallAnimals[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
             smallAnimals[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
             smallAnimals[i].SetActive(true);
-            smallAnimals[i].tag = "small";
         }
         CharecterController.instance.ClearSmallAnimals();
     }
@@ -173,8 +172,8 @@ public class StageManager : MonoBehaviour
     {
         for (int j = 0; j < stageButtonNum[stageNum]; j++)
         {
-            Stagebuttons[j] = nowStage.transform.GetChild(3).transform.GetChild(j).transform.GetChild(1).gameObject.GetComponent<ButtonController>();
-            Stagebuttons[j].TurnRed();
+            stageButtons[j] = nowStage.transform.GetChild(3).transform.GetChild(j).transform.GetChild(1).gameObject.GetComponent<ButtonController>();
+            stageButtons[j].TurnRed();
         }
         isTake = false;
     }
@@ -242,13 +241,13 @@ public class StageManager : MonoBehaviour
     {
         if (!isRed)
         {
-            for (int i = 0; i < Stagebuttons.Count; i++)
-                Stagebuttons[i].TurnGreen();
+            for (int i = 0; i < stageButtons.Count; i++)
+                stageButtons[i].TurnGreen();
         }
         else
         {
-            for (int i = 0; i < Stagebuttons.Count; i++)
-                Stagebuttons[i].TurnRed();
+            for (int i = 0; i < stageButtons.Count; i++)
+                stageButtons[i].TurnRed();
         }
 
     }

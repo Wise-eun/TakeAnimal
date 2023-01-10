@@ -2,8 +2,6 @@ using DG.Tweening;
 using UnityEngine;
 public class AnimalMove : MonoBehaviour
 {
-
-
     [SerializeField]
     Transform groundCheck;
     [SerializeField]
@@ -38,37 +36,25 @@ public class AnimalMove : MonoBehaviour
     }
     public void RightMove()
     {
-        if (!(StageManager.instance.IsTake))
-        {
             groundCheck.transform.position = new Vector3(transform.position.x + 1.1f, groundCheck.position.y, transform.position.z);
             MoveToPosition(CharecterController.dir.right);
-        }
     }
     public void LeftMove()
     {
-        if (!(StageManager.instance.IsTake))
-        {
             groundCheck.transform.position = new Vector3(transform.position.x - 1.1f, groundCheck.position.y, transform.position.z);
             MoveToPosition(CharecterController.dir.left);
-        }
     }
 
     public void UpMove()
     {
-        if (!(StageManager.instance.IsTake))
-        {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z + 1.1f);
             MoveToPosition(CharecterController.dir.forward);
-        }
     }
 
     public void DownMove()
     {
-        if (!(StageManager.instance.IsTake))
-        {
             groundCheck.transform.position = new Vector3(transform.position.x, groundCheck.position.y, transform.position.z - 1.1f);
             MoveToPosition(CharecterController.dir.back);
-        }
     }
 
 
@@ -181,7 +167,6 @@ public class AnimalMove : MonoBehaviour
         if (Physics.Raycast(new Vector3(transform.position.x, 2, transform.position.z), rayDirection, out hit, 1f, prisionLayerMask))
         {
             CharecterController.instance.AddSmallAnimal(hit.collider.gameObject.GetComponent<SmallAnimalMove>());
-            hit.collider.gameObject.tag = "Mysmall";
             hit.collider.gameObject.layer = 7;
             hit.collider.gameObject.transform.GetChild(1).gameObject.SetActive(false);
 

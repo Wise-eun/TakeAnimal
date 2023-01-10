@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 public class UFOMove : MonoBehaviour
 {
+    private float moveSpeed = 0.2f;
 
     [SerializeField]
     Transform groundCheck;
@@ -22,9 +23,9 @@ public class UFOMove : MonoBehaviour
     }
     IEnumerator Dungsil()
     {
-        transform.DOMoveY(1.3f, 0.2f);
-        yield return new WaitForSeconds(0.2f);
-        transform.DOMoveY(1.7f, 0.2f);
+        transform.DOMoveY(1.3f, 0.1f);
+        yield return new WaitForSeconds(0.1f);
+        transform.DOMoveY(1.7f, 0.1f);
         AnimalCheck();
     }
 
@@ -36,7 +37,7 @@ public class UFOMove : MonoBehaviour
             StartCoroutine(Dungsil());
             if (GroundCheck())
             {
-                transform.DOMoveX(transform.position.x - 1.1f, 0.1f);
+                transform.DOMoveX(transform.position.x - 1.1f, moveSpeed);
             }
         }
     }
@@ -48,7 +49,7 @@ public class UFOMove : MonoBehaviour
             StartCoroutine(Dungsil());
             if (GroundCheck())
             {
-                transform.DOMoveX(transform.position.x + 1.1f, 0.1f);
+                transform.DOMoveX(transform.position.x + 1.1f, moveSpeed);
             }
         }
     }
@@ -60,7 +61,7 @@ public class UFOMove : MonoBehaviour
             StartCoroutine(Dungsil());
             if (GroundCheck())
             {
-                transform.DOMoveZ(transform.position.z + 1.1f, 0.1f);
+                transform.DOMoveZ(transform.position.z + 1.1f, moveSpeed);
             }
         }
     }
@@ -72,24 +73,23 @@ public class UFOMove : MonoBehaviour
             StartCoroutine(Dungsil());
             if (GroundCheck())
             {
-                transform.DOMoveZ(transform.position.z - 1.1f, 0.1f);
+                transform.DOMoveZ(transform.position.z - 1.1f, moveSpeed);
             }
         }
     }
     IEnumerator Take(Transform animal, bool isAnimal)
     {
+        StageManager.instance.IsTake = true;
 
         takeSound.Play();
         animal.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 
-        animal.DOMoveY(4f, 1f).SetEase(Ease.InCirc);
-        StartCoroutine(Rotate(animal));
-        yield return new WaitForSeconds(0.2f);
-        animal.transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 1f);
-        yield return new WaitForSeconds(0.8f);
-
+        animal.DOMoveY(4f, 1f).SetEase(Ease.InCirc); 
+        StartCoroutine(Rotate(animal)); 
+        animal.transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 1f); 
+       
+        yield return new WaitForSeconds(1f);
         animal.gameObject.SetActive(false);
-
         if (isAnimal)
         {
             StageManager.instance.StageFail();
@@ -99,6 +99,7 @@ public class UFOMove : MonoBehaviour
             StageManager.instance.DecreaseCatchedAnimals();
         }
         StageManager.instance.IsTake = false;
+
     }
 
     IEnumerator Rotate(Transform animal)
